@@ -8,10 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.connected.DbStrings;
+import com.example.connected.DB.DbStrings;
 import com.example.connected.R;
-import com.example.connected.activities.MainScreenActivity;
-import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -21,12 +20,14 @@ import java.sql.Statement;
 
 import static java.lang.Integer.parseInt;
 
-public class MainActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
+
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_login);
 
         Button addBtn = (Button)findViewById(R.id.addBtn);
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -45,6 +46,21 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (currentUser != null) {
+            goToMainScreenActivity();
+        }
+    }
+
+    private void goToMainScreenActivity() {
+        Intent loginScreenIntent = new Intent(getApplicationContext(), MainScreenActivity.class);
+        startActivity(loginScreenIntent);
+    }
+
     private class QueryLogin extends AsyncTask<String,String,String> {
         String login;
         String password;
@@ -104,4 +120,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-} // End of MainActivity
+} // End of LoginActivity

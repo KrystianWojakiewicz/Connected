@@ -6,22 +6,19 @@ import android.os.Bundle;
 
 import com.example.connected.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.viewpager.widget.ViewPager;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.example.connected.ui.main.SectionsPagerAdapter;
-
-import java.net.URI;
-import java.net.URISyntaxException;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainScreenActivity extends AppCompatActivity {
+
+    private FirebaseUser currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +39,20 @@ public class MainScreenActivity extends AppCompatActivity {
 
                 Intent searchEngineIntent = new Intent(Intent.ACTION_VIEW, uri);
                 startActivity(searchEngineIntent);
-//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
             }
         });
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (currentUser == null) {
+            goToLoginActivity();
+        }
+    }
+
+    private void goToLoginActivity() {
+        Intent loginScreenIntent = new Intent(getApplicationContext(), LoginActivity.class);
+        startActivity(loginScreenIntent);
     }
 }

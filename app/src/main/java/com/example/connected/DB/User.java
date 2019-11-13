@@ -1,4 +1,4 @@
-package com.example.connected;
+package com.example.connected.DB;
 
 public class User {
     private String username;

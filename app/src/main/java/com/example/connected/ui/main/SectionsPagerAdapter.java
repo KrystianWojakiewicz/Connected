@@ -8,9 +8,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
-import com.example.connected.FriendsTab;
-import com.example.connected.GroupsTab;
-import com.example.connected.MyProfileTab;
+import com.example.connected.tabs.FriendsTab;
+import com.example.connected.tabs.GroupsTab;
+import com.example.connected.tabs.MyProfileTab;
 import com.example.connected.R;
 
 /**

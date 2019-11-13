@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAppBackgroundBasic"
+    tools:context=".activities.RegisterActivity">
+
+    <TextView
+        android:id="@+id/loginTextView"
+        android:layout_width="177dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="88dp"
+        android:background="@drawable/input_box_style"
+        android:drawableLeft="@android:drawable/ic_menu_send"
+        android:gravity="center"
+        android:hint="E-mail/Username"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerImage" />
+
+    <TextView
+        android:id="@+id/passwordTextView"
+        android:layout_width="177dp"
+        android:layout_height="42dp"
+        android:layout_marginTop="36dp"
+        android:background="@drawable/input_box_style"
+        android:drawableStart="@android:drawable/ic_menu_send"
+        android:drawableLeft="@android:drawable/ic_menu_send"
+        android:gravity="center"
+        android:hint="Password"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginTextView" />
+
+    <ImageView
+        android:id="@+id/registerImage"
+        android:layout_width="419dp"
+        android:layout_height="253dp"
+        android:background="@color/colorAppBackgroundBasic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/register_logo" />
+</androidx.constraintlayout.widget.ConstraintLayout>

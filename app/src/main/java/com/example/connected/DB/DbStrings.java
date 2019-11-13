@@ -1,4 +1,4 @@
-package com.example.connected;
+package com.example.connected.DB;
 
 public class DbStrings {
     public static final String DATABASE_URL = "192.168.0.195:3306";

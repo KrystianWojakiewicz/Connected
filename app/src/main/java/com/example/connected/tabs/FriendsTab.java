@@ -1,4 +1,4 @@
-package com.example.connected;
+package com.example.connected.tabs;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,8 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.connected.R;
+import com.example.connected.DB.User;
 import com.example.connected.activities.MessageViewActivity;
 
 public class FriendsTab extends Fragment {

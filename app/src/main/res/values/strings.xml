@@ -1,6 +1,6 @@
 <resources>
-    <string name="app_name">Connected</string>
-    <string name="title_activity_main_screen">MainScreenActivity</string>
+    <string name="app_name">Echo</string>
+    <string name="title_activity_login">Login</string>
     <string name="friends_tab">Friends</string>
     <string name="groups_tab">Groups</string>
     <string name="my_profile_tab">My Profile</string>
