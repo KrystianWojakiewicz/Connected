@@ -8,30 +8,27 @@
     tools:context=".activities.MainActivity">
 
     <EditText
-        android:id="@+id/textNum"
+        android:id="@+id/loginEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:ems="10"
         android:hint="Login"
-        android:inputType="number"
+        android:inputType="date|textUri|textShortMessage|textLongMessage|textAutoCorrect|numberSigned|textVisiblePassword|textWebEditText|textMultiLine|textNoSuggestions|textFilter|number|datetime|textWebEmailAddress|textPersonName|text|textPhonetic|textCapSentences|textPassword|textAutoComplete|textImeMultiLine|textPostalAddress|numberDecimal|textEmailAddress|numberPassword|textCapWords|phone|textEmailSubject|textCapCharacters|time|textWebPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/textNum2"
+        android:id="@+id/passwordEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="84dp"
-        android:layout_marginLeft="84dp"
         android:ems="10"
         android:hint="Password"
-        android:inputType="number"
+        android:inputType="date|textUri|textShortMessage|textLongMessage|textAutoCorrect|numberSigned|textVisiblePassword|textWebEditText|textMultiLine|textNoSuggestions|textFilter|number|datetime|textWebEmailAddress|textPersonName|text|textPhonetic|textCapSentences|textPassword|textAutoComplete|textImeMultiLine|textPostalAddress|numberDecimal|textEmailAddress|numberPassword|textCapWords|phone|textEmailSubject|textCapCharacters|time|textWebPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.131"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textNum" />
+        app:layout_constraintTop_toBottomOf="@+id/loginEditText" />
 
     <Button
         android:id="@+id/addBtn"
@@ -42,6 +39,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textNum2" />
+        app:layout_constraintTop_toBottomOf="@+id/passwordEditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
