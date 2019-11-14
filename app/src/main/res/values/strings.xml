@@ -4,4 +4,5 @@
     <string name="friends_tab">Friends</string>
     <string name="groups_tab">Groups</string>
     <string name="my_profile_tab">My Profile</string>
+    <string name="registration">Registration</string>
 </resources>

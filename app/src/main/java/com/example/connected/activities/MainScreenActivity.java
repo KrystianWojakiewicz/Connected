@@ -14,34 +14,36 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.view.View;
 
 import com.example.connected.ui.main.SectionsPagerAdapter;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class MainScreenActivity extends AppCompatActivity {
 
     private FirebaseUser currentUser;
+    private FirebaseAuth mAuth;
+
+    private SectionsPagerAdapter sectionsPagerAdapter;
+    private ViewPager viewPager;
+    private TabLayout tabs;
+
+    private void initializeViews() {
+        this.sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        this.viewPager = findViewById(R.id.view_pager);
+        this.viewPager.setAdapter(sectionsPagerAdapter);
+        this.tabs = findViewById(R.id.tabs);
+        this.tabs.setupWithViewPager(viewPager);
+
+        this.mAuth = FirebaseAuth.getInstance();
+        this.currentUser = this.mAuth.getCurrentUser();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-        SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.tabs);
-        tabs.setupWithViewPager(viewPager);
-        FloatingActionButton fab = findViewById(R.id.fab);
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                final String google = "http://www.google.com";
-                Uri uri = Uri.parse(google);
-
-                Intent searchEngineIntent = new Intent(Intent.ACTION_VIEW, uri);
-                startActivity(searchEngineIntent);
-            }
-        });
+        initializeViews();
     }
+
     @Override
     protected void onStart() {
         super.onStart();
