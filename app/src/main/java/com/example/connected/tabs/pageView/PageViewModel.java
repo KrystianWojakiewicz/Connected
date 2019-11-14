@@ -1,4 +1,4 @@
-package com.example.connected.ui.main;
+package com.example.connected.tabs.pageView;
 
 import androidx.arch.core.util.Function;
 import androidx.lifecycle.LiveData;

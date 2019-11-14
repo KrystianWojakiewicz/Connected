@@ -46,9 +46,6 @@ public class MyApplication extends Application {
                         Log.i(TAG, "App in background");
                     }
                 }
-                mAuth = FirebaseAuth.getInstance();
-                mAuth.signOut();
-
             }
 
             @Override public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
@@ -56,6 +53,8 @@ public class MyApplication extends Application {
             }
 
             @Override public void onActivityDestroyed(Activity activity) {
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
             }
         });
     }

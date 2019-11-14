@@ -61,7 +61,8 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Please Enter Your Username In The Specified Field", Toast.LENGTH_SHORT).show();
         }
         else {
-            this.progressDialog.setMessage("Creating new Account...");
+            this.progressDialog.setTitle("Creating new Account");
+            this.progressDialog.setMessage("Please Wait...");
             this.progressDialog.setCanceledOnTouchOutside(true);
             this.progressDialog.show();
 

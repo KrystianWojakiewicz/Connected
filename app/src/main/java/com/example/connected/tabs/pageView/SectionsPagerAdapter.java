@@ -1,4 +1,4 @@
-package com.example.connected.ui.main;
+package com.example.connected.tabs.pageView;
 
 import android.content.Context;
 

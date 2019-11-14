@@ -14,7 +14,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.connected.DB.DbStrings;
 import com.example.connected.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -24,8 +23,8 @@ import com.google.firebase.auth.FirebaseUser;
 
 
 public class LoginActivity extends AppCompatActivity {
-    private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
 
     private EditText loginEditText;
     private EditText passwordEditText;
@@ -79,7 +78,8 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Please Enter Your Username In The Specified Field", Toast.LENGTH_SHORT).show();
         }
         else {
-            this.progressDialog.setMessage("Signing In...");
+            this.progressDialog.setTitle("Logging in");
+            this.progressDialog.setMessage("Please Wait...");
             this.progressDialog.setCanceledOnTouchOutside(true);
             this.progressDialog.show();
 
@@ -104,15 +104,17 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-
         if (currentUser != null) {
             goToMainScreenActivity();
         }
+
     }
 
     private void goToMainScreenActivity() {
         Intent loginScreenIntent = new Intent(getApplicationContext(), MainScreenActivity.class);
+        loginScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginScreenIntent);
+        finish();
     }
 //
 //    private class QueryLogin extends AsyncTask<String,String,String> {
