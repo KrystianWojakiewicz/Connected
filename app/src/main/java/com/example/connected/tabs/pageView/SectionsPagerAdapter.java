@@ -13,10 +13,6 @@ import com.example.connected.tabs.GroupsTab;
 import com.example.connected.tabs.MyProfileTab;
 import com.example.connected.R;
 
-/**
- * A [FragmentPagerAdapter] that returns a fragment corresponding to
- * one of the sections/tabs/pages.
- */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @StringRes

@@ -33,8 +33,8 @@ public class MainScreenActivity extends AppCompatActivity {
         setSupportActionBar(this.myToolbar);
         getSupportActionBar().setTitle("Echo");
 
-        this.mySectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         this.myViewPager = findViewById(R.id.view_pager);
+        this.mySectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         this.myViewPager.setAdapter(mySectionsPagerAdapter);
 
         this.myTabLayout = findViewById(R.id.myTabLayout);
