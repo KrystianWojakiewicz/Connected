@@ -15,7 +15,7 @@ public class MyProfileTab extends Fragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.my_profile_tab, container, false);
+        View root = inflater.inflate(R.layout.my_profile_fragment, container, false);
         return root;
     }
 }

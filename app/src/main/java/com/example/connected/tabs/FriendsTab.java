@@ -20,7 +20,7 @@ public class FriendsTab extends Fragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.friends_tab, container, false);
+        final View v = inflater.inflate(R.layout.friends_fragment, container, false);
 
         ListView friendsListView = v.findViewById(R.id.friendsListView);
         FriendsListAdapter friendsListAdapter = new FriendsListAdapter(v.getContext());

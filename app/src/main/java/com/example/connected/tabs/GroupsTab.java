@@ -15,7 +15,7 @@ public class GroupsTab extends Fragment {
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.groups_tab, container, false);
+        View root = inflater.inflate(R.layout.groups_fragment, container, false);
         return root;
     }
 }

@@ -1,14 +1,19 @@
 package com.example.connected.DB;
 
+import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
+
 public class User {
     private String username;
     private int age;
     private boolean isActive;
+    private int userImage;
 
-    public User(String username, int age, boolean isActive) {
+    public User(String username, int age, boolean isActive, int userImage) {
         this.username = username;
         this.age = age;
         this.isActive = isActive;
+        this.userImage = userImage;
     }
 
     public String getUsername() {

@@ -1,25 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
-<!--    xmlns:tools="http://schemas.android.com/tools"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    android:background="@android:color/darker_gray"-->
-<!--    tools:context=".tabs.FriendsTab">-->
-
-<!--    <ListView-->
-<!--        android:id="@+id/friendsListView"-->
-<!--        android:layout_width="393dp"-->
-<!--        android:layout_height="506dp"-->
-<!--        android:layout_alignParentTop="true"-->
-<!--        android:layout_centerHorizontal="true"-->
-<!--        android:layout_marginTop="59dp" />-->
-<!--</RelativeLayout>-->
-
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,13 +19,12 @@
             >
         </include>
 
-
-
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/myTabLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorToolBar"/>
+
     </com.google.android.material.appbar.AppBarLayout>
 
 
@@ -58,6 +38,6 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="106dp"
         android:layout_marginEnd="0dp"
-        android:background="@android:color/darker_gray" />
+        android:background="@color/colorAppBackgroundBasic" />
 
 </RelativeLayout>
