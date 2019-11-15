@@ -57,10 +57,10 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
     private void createNewUser() {
-        String username = loginEditText.getText().toString();
+        final String login = loginEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
-        if(TextUtils.isEmpty(username)) {
+        if(TextUtils.isEmpty(login)) {
             Toast.makeText(this, "Please Enter Your Username In The Specified Field", Toast.LENGTH_SHORT).show();
         }
         else if(TextUtils.isEmpty(password)) {
@@ -72,12 +72,13 @@ public class RegisterActivity extends AppCompatActivity {
             this.progressDialog.setCanceledOnTouchOutside(true);
             this.progressDialog.show();
 
-            this.mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            this.mAuth.createUserWithEmailAndPassword(login, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
                         String currentUid = mAuth.getCurrentUser().getUid();
                         rootRef.child("Users").child(currentUid).setValue("");
+                        rootRef.child("Users").child(currentUid).child("E-mail").setValue(login);
 
                         goToLoginActivity();
                         Toast.makeText(RegisterActivity.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();

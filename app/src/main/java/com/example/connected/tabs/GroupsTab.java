@@ -1,16 +1,18 @@
 package com.example.connected.tabs;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.connected.R;
+import com.example.connected.activities.GroupChatActivity;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,8 +22,8 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
+
 
 public class GroupsTab extends Fragment {
     DatabaseReference rootRef;
@@ -29,16 +31,16 @@ public class GroupsTab extends Fragment {
     private ArrayList<String> groups = new ArrayList<>();
     private ListView groupsListView;
     private View groupsView;
-    GroupsListAdapter myGroupsAdapter;
-    private ArrayAdapter<String> arrayAdapter;
+    private GroupsListAdapter myGroupsAdapter;
+//    private ArrayAdapter<String> arrayAdapter;
 
     private void initializeViews() {
         this.rootRef = FirebaseDatabase.getInstance().getReference();
         this.groupsListView = this.groupsView.findViewById(R.id.groupsListView);
-//        this.myGroupsAdapter = new GroupsListAdapter(this.groupsView.getContext(), this.groups);
-//        this.groupsListView.setAdapter(this.myGroupsAdapter);
-        this.arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.groups_list_layout, groups);
-        this.groupsListView.setAdapter(this.arrayAdapter);
+        this.myGroupsAdapter = new GroupsListAdapter(this.groupsView.getContext(), this.groups);
+        this.groupsListView.setAdapter(this.myGroupsAdapter);
+//        this.arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.groups_list_layout_old, groups);
+//        this.groupsListView.setAdapter(this.arrayAdapter);
 
     }
 
@@ -49,8 +51,18 @@ public class GroupsTab extends Fragment {
         this.groupsView = inflater.inflate(R.layout.groups_fragment, container, false);
 
         initializeViews();
-
         requestGroupsFromDatabase();
+
+        this.groupsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String currentGroupName = parent.getItemAtPosition(position).toString();
+
+                Intent goToGroupChatIntent = new Intent(groupsView.getContext(), GroupChatActivity.class);
+                goToGroupChatIntent.putExtra("groupName", currentGroupName);
+                startActivity(goToGroupChatIntent);
+            }
+        });
 
         return groupsView;
     }
@@ -64,17 +76,16 @@ public class GroupsTab extends Fragment {
 
                 while (iterator.hasNext()) {
                     String itGroup = ((DataSnapshot)iterator.next()).getKey();
-                    System.out.println("HAHAHAHAHA: " + itGroup);
                     set.add(itGroup);
                 }
                 groups.clear();
                 groups.addAll(set);
-                arrayAdapter.notifyDataSetChanged();
+//                arrayAdapter.notifyDataSetChanged();
+                myGroupsAdapter.notifyDataSetChanged();
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
     }
