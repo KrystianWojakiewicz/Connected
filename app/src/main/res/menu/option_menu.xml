@@ -8,6 +8,12 @@
         >
     </item>
 
+    <item android:title="Create Group"
+        android:id="@+id/create_grp_option"
+        app:showAsAction="never"
+        >
+    </item>
+
     <item android:title="Log out"
         android:id="@+id/logout_option"
         app:showAsAction="never"

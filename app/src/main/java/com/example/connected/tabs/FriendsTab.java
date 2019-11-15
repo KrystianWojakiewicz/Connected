@@ -12,29 +12,28 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import com.example.connected.R;
-import com.example.connected.DB.User;
 import com.example.connected.activities.MessageViewActivity;
 
 public class FriendsTab extends Fragment {
+    View friendsView;
+
     @Override
     public View onCreateView(
             @NonNull LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        final View v = inflater.inflate(R.layout.friends_fragment, container, false);
+        this.friendsView = inflater.inflate(R.layout.friends_fragment, container, false);
 
-        ListView friendsListView = v.findViewById(R.id.friendsListView);
-        FriendsListAdapter friendsListAdapter = new FriendsListAdapter(v.getContext());
+        ListView friendsListView = friendsView.findViewById(R.id.groupsListView);
+        FriendsListAdapter friendsListAdapter = new FriendsListAdapter(friendsView.getContext());
         friendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent messageViewIntent = new Intent(v.getContext(), MessageViewActivity.class);
-                User a = (User)parent.getItemAtPosition(position);
-                messageViewIntent.putExtra("clickedUser", a.getUsername());
+                Intent messageViewIntent = new Intent(friendsView.getContext(), MessageViewActivity.class);
                 startActivity(messageViewIntent);
             }
         });
 
         friendsListView.setAdapter(friendsListAdapter);
-        return v;
+        return friendsView;
     }
 }

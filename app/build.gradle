@@ -34,6 +34,12 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.0.0'
 
+    // Square Image View
+    implementation 'com.github.Theophrast:SquareImageView:1.0.1'
+
+    // Shape of View
+    implementation 'com.github.florent37:shapeofview:1.4.7'
+
     // mySQL connector support
     implementation project(':mysql-connector-java-5.1.48-bin')
 }

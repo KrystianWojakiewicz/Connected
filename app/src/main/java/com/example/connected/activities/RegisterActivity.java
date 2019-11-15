@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.connected.R;
@@ -18,9 +17,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
+    DatabaseReference rootRef;
+
     EditText loginEditText;
     EditText passwordEditText;
     ProgressDialog progressDialog;
@@ -28,6 +32,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     private void initializeViews() {
         this.mAuth = FirebaseAuth.getInstance();
+        this.rootRef = FirebaseDatabase.getInstance().getReference().getRoot();
+
         this.progressDialog = new ProgressDialog(this);
 
         this.loginEditText = findViewById(R.id.loginEditText);
@@ -66,12 +72,15 @@ public class RegisterActivity extends AppCompatActivity {
             this.progressDialog.setCanceledOnTouchOutside(true);
             this.progressDialog.show();
 
-            mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            this.mAuth.createUserWithEmailAndPassword(username, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
+                        String currentUid = mAuth.getCurrentUser().getUid();
+                        rootRef.child("Users").child(currentUid).setValue("");
+
                         goToLoginActivity();
-                        Toast.makeText(RegisterActivity.this, "Acount Created Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(RegisterActivity.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
                         progressDialog.dismiss();
                     }
                     else {

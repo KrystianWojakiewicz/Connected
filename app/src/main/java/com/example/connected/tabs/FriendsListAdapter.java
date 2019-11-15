@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.example.connected.DB.User;
 import com.example.connected.R;
+import com.theophrast.ui.widget.SquareImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +23,7 @@ public class FriendsListAdapter extends BaseAdapter {
     private TextView ageTextView;
     private TextView statusTextView;
     private TextView statusIcon;
-    private ImageView userImage;
+    private SquareImageView userImage;
 
     public FriendsListAdapter(Context c) {
         users.add(new User("krystian", 23, false, R.drawable.email_icon));
