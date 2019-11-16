@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <item android:title="Settings"
-        android:id="@+id/settings_option"
+    <item android:title="Find User"
+        android:id="@+id/find_user_option"
         app:showAsAction="never"
         >
     </item>
 
+
     <item android:title="Create Group"
         android:id="@+id/create_grp_option"
+        app:showAsAction="never"
+        >
+    </item>
+
+    <item android:title="Settings"
+        android:id="@+id/settings_option"
         app:showAsAction="never"
         >
     </item>

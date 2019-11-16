@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.connected.DB.User;
@@ -23,11 +22,11 @@ public class FriendsListAdapter extends BaseAdapter {
     private TextView ageTextView;
     private TextView statusTextView;
     private TextView statusIcon;
-    private SquareImageView userImage;
+    private SquareImageView userImageView;
 
     public FriendsListAdapter(Context c) {
-        users.add(new User("krystian", 23, false, R.drawable.email_icon));
-        users.add(new User("filip", 21, true, R.drawable.email_icon));
+        users.add(new User("krystian", false, "ICON"));
+        users.add(new User("filip", true, "ICON"));
         mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -36,7 +35,7 @@ public class FriendsListAdapter extends BaseAdapter {
         this.ageTextView = v.findViewById(R.id.ageTextView);
         this.statusTextView = v.findViewById(R.id.statusTextView);
         this.statusIcon = v.findViewById(R.id.statusIcon);
-        this.userImage = v.findViewById(R.id.userImageView);
+        this.userImageView = v.findViewById(R.id.userImageView);
     }
 
     @Override
@@ -56,22 +55,18 @@ public class FriendsListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = mInflater.inflate(R.layout.friends_list_layout, null);
+        View v = mInflater.inflate(R.layout.users_list_layout, null);
         initializeViews(v);
 
         User currUser = users.get(position);
-        usernameTextView.setText(currUser.getUsername());
+        usernameTextView.setText(currUser.getName());
         ageTextView.setText("age");
-        userImage.setImageResource(R.drawable.avatar_icon);
+        userImageView.setImageResource(R.drawable.avatar_icon);
 
-        if(currUser.isActive()) {
-            statusTextView.setText("ONLINE");
-            statusIcon.setBackgroundResource(R.drawable.green_circle_drawable);
-        }
-        else {
-            statusTextView.setText("OFFLINE");
-            statusIcon.setBackgroundResource(R.drawable.red_circle_drawable);
-        }
+
+        statusTextView.setText(currUser.isActive());
+        statusIcon.setBackgroundResource(R.drawable.green_circle_drawable);
+//      statusIcon.setBackgroundResource(R.drawable.red_circle_drawable);
 
         return v;
     }

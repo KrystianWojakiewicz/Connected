@@ -1,39 +1,54 @@
 package com.example.connected.DB;
 
-import android.graphics.drawable.Drawable;
-import android.widget.ImageView;
 
 public class User {
-    private String username;
-    private int age;
+    private String name;
+    private String statusText;
     private boolean isActive;
-    private int userImage;
+    private String image;
 
-    public User(String username, int age, boolean isActive, int userImage) {
-        this.username = username;
-        this.age = age;
+    public User() {
+
+    };
+
+    public User(String name, boolean isActive, String image) {
+        this.name = name;
+
         this.isActive = isActive;
-        this.userImage = userImage;
+        this.image = image;
     }
 
-    public String getUsername() {
-        return username;
+    public String getStatusText() {
+        return statusText;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setStatusText(String statusText) {
+        this.statusText = statusText;
     }
 
-    public int getAge() {
-        return age;
+    public String getImage() {
+        return image;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public void setImage(String image) {
+        this.image = image;
     }
 
-    public boolean isActive() {
-        return isActive;
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String isActive() {
+        if (isActive) {
+            return "Online";
+        }
+        else {
+            return "Offline";
+        }
     }
 
     public void setActive(boolean active) {

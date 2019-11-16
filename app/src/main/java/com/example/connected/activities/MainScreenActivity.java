@@ -73,14 +73,26 @@ public class MainScreenActivity extends AppCompatActivity {
         super.onOptionsItemSelected(item);
 
         switch (item.getItemId()) {
-            case R.id.settings_option :
+            case R.id.find_user_option : {
+                goToFindUsers();
                 break;
-            case R.id.logout_option :
+            }
+
+            case R.id.create_grp_option : {
+                requestNewGroup();
+                break;
+            }
+
+            case R.id.settings_option : {
+                break;
+            }
+
+            case R.id.logout_option : {
                 mAuth.signOut();
                 goToLoginActivity();
                 break;
-            case R.id.create_grp_option :
-                requestNewGroup();
+            }
+
         }
 
         return true;
@@ -120,6 +132,11 @@ public class MainScreenActivity extends AppCompatActivity {
 
     private void createNewGroup(String groupName) {
         rootRef.child("Groups").child(groupName).setValue("");
+    }
+
+    private void goToFindUsers() {
+        Intent goToFindUsersIntent = new Intent(getApplicationContext(), FindUsersActivity.class);
+        startActivity(goToFindUsersIntent);
     }
 
     private void goToLoginActivity() {
