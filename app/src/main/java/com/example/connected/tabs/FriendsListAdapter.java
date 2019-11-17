@@ -61,7 +61,7 @@ public class FriendsListAdapter extends BaseAdapter {
         User currUser = users.get(position);
         usernameTextView.setText(currUser.getName());
         ageTextView.setText("age");
-        userImageView.setImageResource(R.drawable.avatar_icon);
+        userImageView.setImageResource(R.drawable.default_avatar);
 
 
         statusTextView.setText(currUser.isActive());

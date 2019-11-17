@@ -5,4 +5,15 @@
     <string name="groups_tab">Groups</string>
     <string name="my_profile_tab">My Profile</string>
     <string name="registration">Registration</string>
+
+    <string name="Users">Users</string>
+    <string name="Uid">Uid</string>
+    <string name="Name">Name</string>
+    <string name="Image">Image</string>
+    <string name="Email">Email</string>
+    <string name="Status">Status</string>
+    <string name="ImagesFolder">Images</string>
+    <string name="Groups">Groups</string>
+    <string name="Title">Title</string>
+    <string name="DefaultImage">default_avatar.png</string>
 </resources>

@@ -34,6 +34,9 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.0.0'
 
+    // Picasso lib
+    implementation 'com.squareup.picasso:picasso:2.71828'
+
     // Firebase UI for real-time Database
     implementation 'com.firebaseui:firebase-ui-database:6.1.0'
 

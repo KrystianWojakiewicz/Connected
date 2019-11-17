@@ -39,7 +39,7 @@ public class FindUsersActivity extends AppCompatActivity {
         setSupportActionBar(this.myToolbar);
         getSupportActionBar().setTitle("Find User");
 
-        this.usersRoot = FirebaseDatabase.getInstance().getReference().child("Users");
+        this.usersRoot = FirebaseDatabase.getInstance().getReference().child(getString(R.string.Users));
     }
 
     @Override

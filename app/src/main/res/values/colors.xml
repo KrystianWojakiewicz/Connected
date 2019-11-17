@@ -3,8 +3,9 @@
     <color name="colorPrimary">#03A9F4</color>
     <color name="colorPrimaryDark">#0C41B3</color>
     <color name="colorAccent">#D81B60</color>
-    <color name="colorAppBackgroundBasic">#A2C0EB</color>
+    <color name="colorAppBackgroundBasic">#5BEAFF</color>
     <color name="colorToolBar">#2880AF</color>
     <color name="colorButtons">#0C41B3</color>
     <color name="colorInputBox">#0C41B3</color>
+    <color name="colorBoxes">#188A9B</color>
 </resources>

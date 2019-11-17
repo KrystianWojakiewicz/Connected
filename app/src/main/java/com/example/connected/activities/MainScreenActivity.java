@@ -22,8 +22,11 @@ import android.widget.Toast;
 import com.example.connected.tabs.pageView.SectionsPagerAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainScreenActivity extends AppCompatActivity {
 
@@ -58,6 +61,27 @@ public class MainScreenActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
         initializeViews();
+
+        verifyIfUserExists();
+    }
+
+    private void verifyIfUserExists() {
+        this.rootRef.child(getString(R.string.Users)).child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(dataSnapshot.child(getString(R.string.Name)).exists()) {
+                    Toast.makeText(MainScreenActivity.this, "Welcome Back", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    goToSettingsActivity();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -69,12 +93,21 @@ public class MainScreenActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+        if(currentUser == null) {
+            goToLoginActivity();
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         super.onOptionsItemSelected(item);
 
         switch (item.getItemId()) {
             case R.id.find_user_option : {
-                goToFindUsers();
+                goToFindUsersActivity();
                 break;
             }
 
@@ -84,6 +117,7 @@ public class MainScreenActivity extends AppCompatActivity {
             }
 
             case R.id.settings_option : {
+                goToSettingsActivity();
                 break;
             }
 
@@ -134,9 +168,15 @@ public class MainScreenActivity extends AppCompatActivity {
         rootRef.child("Groups").child(groupName).setValue("");
     }
 
-    private void goToFindUsers() {
+    private void goToFindUsersActivity() {
         Intent goToFindUsersIntent = new Intent(getApplicationContext(), FindUsersActivity.class);
         startActivity(goToFindUsersIntent);
+    }
+
+
+    private void goToSettingsActivity() {
+        Intent goToSettingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+        startActivity(goToSettingsIntent);
     }
 
     private void goToLoginActivity() {

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -20,19 +21,24 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     DatabaseReference rootRef;
+    StorageReference firebaseStorageRef;
 
     EditText loginEditText;
     EditText passwordEditText;
     ProgressDialog progressDialog;
     Button registerBtn;
 
+
     private void initializeViews() {
         this.mAuth = FirebaseAuth.getInstance();
         this.rootRef = FirebaseDatabase.getInstance().getReference().getRoot();
+        this.firebaseStorageRef = FirebaseStorage.getInstance().getReference();
 
         this.progressDialog = new ProgressDialog(this);
 
@@ -76,9 +82,8 @@ public class RegisterActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if(task.isSuccessful()) {
-                        String currentUid = mAuth.getCurrentUser().getUid();
-                        rootRef.child("Users").child(currentUid).setValue("");
-                        rootRef.child("Users").child(currentUid).child("email").setValue(login);
+
+                        initializeNewUser();
 
                         goToLoginActivity();
                         Toast.makeText(RegisterActivity.this, "Account Created Successfully", Toast.LENGTH_SHORT).show();
@@ -92,6 +97,31 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    private void initializeNewUser() {
+        final String currentUid = mAuth.getCurrentUser().getUid();
+        final String usersKey = getString(R.string.Users);
+        final String imageKey = getString(R.string.Image);
+        final String imagesFolderKey = getString(R.string.ImagesFolder);
+        final String defaultImageKey = getString(R.string.DefaultImage);
+
+
+        firebaseStorageRef.child(imagesFolderKey).child(defaultImageKey).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                String defaultProfileImage = task.getResult().toString();
+
+                rootRef.child(usersKey).child(currentUid).child(imageKey).setValue(defaultProfileImage).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(!task.isSuccessful()) {
+                            Toast.makeText(RegisterActivity.this, "Couldn't set up default Image", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private void goToLoginActivity() {
