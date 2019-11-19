@@ -19,7 +19,6 @@ public class FriendsListAdapter extends BaseAdapter {
     List<User> users = new ArrayList<>();
 
     private TextView usernameTextView;
-    private TextView ageTextView;
     private TextView statusTextView;
     private TextView statusIcon;
     private SquareImageView userImageView;
@@ -32,7 +31,6 @@ public class FriendsListAdapter extends BaseAdapter {
 
     private void initializeViews(View v) {
         this.usernameTextView = v.findViewById(R.id.usernameTextView);
-        this.ageTextView = v.findViewById(R.id.ageTextView);
         this.statusTextView = v.findViewById(R.id.statusTextView);
         this.statusIcon = v.findViewById(R.id.statusIcon);
         this.userImageView = v.findViewById(R.id.userImageView);
@@ -60,7 +58,6 @@ public class FriendsListAdapter extends BaseAdapter {
 
         User currUser = users.get(position);
         usernameTextView.setText(currUser.getName());
-        ageTextView.setText("age");
         userImageView.setImageResource(R.drawable.default_avatar);
 
 

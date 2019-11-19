@@ -129,7 +129,6 @@ public class GroupChatActivity extends AppCompatActivity {
 
             HashMap<String, Object> messageToSend = new HashMap<>();
 
-            System.out.println("NAME: " + this.currentUser.getDisplayName());
             messageToSend.put("Name", this.currentUser.getEmail());
             messageToSend.put("Date", date);
             messageToSend.put("Time", time);

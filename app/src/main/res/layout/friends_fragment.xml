@@ -15,8 +15,7 @@
 
         <include
             android:id="@+id/main_screen_toolbar"
-            layout="@layout/app_toolbar"
-            >
+            layout="@layout/app_toolbar" >
         </include>
 
         <com.google.android.material.tabs.TabLayout
@@ -26,7 +25,6 @@
             android:background="@color/colorToolBar"/>
 
     </com.google.android.material.appbar.AppBarLayout>
-
 
     <ListView
         android:id="@+id/groupsListView"
@@ -38,6 +36,8 @@
         android:layout_marginStart="1dp"
         android:layout_marginTop="106dp"
         android:layout_marginEnd="0dp"
-        android:background="@color/colorAppBackgroundBasic" />
+        android:background="@color/colorAppBackgroundBasic"
+        android:divider="@color/colorTransparent"
+        android:dividerHeight="1dp" />
 
 </RelativeLayout>

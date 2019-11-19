@@ -68,7 +68,7 @@ public class GroupsTab extends Fragment {
     }
 
     private void requestGroupsFromDatabase() {
-        rootRef.child("Groups").addValueEventListener(new ValueEventListener() {
+        rootRef.child(getString(R.string.Groups)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Iterator iterator = dataSnapshot.getChildren().iterator();

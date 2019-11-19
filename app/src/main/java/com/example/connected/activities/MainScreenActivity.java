@@ -66,7 +66,10 @@ public class MainScreenActivity extends AppCompatActivity {
     }
 
     private void verifyIfUserExists() {
-        this.rootRef.child(getString(R.string.Users)).child(currentUser.getUid()).addValueEventListener(new ValueEventListener() {
+        if(currentUser == null) { return; }
+
+        String currentUid = currentUser.getUid();
+        this.rootRef.child(getString(R.string.Users)).child(currentUid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if(dataSnapshot.child(getString(R.string.Name)).exists()) {

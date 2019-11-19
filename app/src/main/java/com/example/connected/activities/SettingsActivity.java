@@ -1,9 +1,13 @@
 package com.example.connected.activities;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.KeyListener;
@@ -14,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.connected.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,7 +28,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageActivity;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 
@@ -34,11 +44,14 @@ public class SettingsActivity extends AppCompatActivity {
 
     private Button saveBtn;
     private EditText nameEditText;
-    private EditText statusEditext;
+    private EditText statusEditText;
     private ImageView userImageView;
     private Toolbar myToolbar;
     private KeyListener nameEditListener;
+    private ProgressDialog loadingDialog;
+    private Uri userImageUri;
 
+    final int GALLERY_CODE = 1;
 
     private void initializeView() {
         this.firebaseStorageRef = FirebaseStorage.getInstance().getReference();
@@ -48,8 +61,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         saveBtn = findViewById(R.id.saveBtn);
         nameEditText = findViewById(R.id.nameEditText);
-        statusEditext = findViewById(R.id.statusEditText);
+        statusEditText = findViewById(R.id.statusEditText);
         userImageView = findViewById(R.id.userImageView);
+        loadingDialog = new ProgressDialog(this);
     }
 
     @Override
@@ -74,11 +88,36 @@ public class SettingsActivity extends AppCompatActivity {
                 updateUserInfo();
             }
         });
+
+        this.userImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent chooseImageIntent = new Intent();
+                chooseImageIntent.setAction(Intent.ACTION_GET_CONTENT);
+                chooseImageIntent.setType("image/*");
+                startActivityForResult(chooseImageIntent, GALLERY_CODE);
+            }
+        });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == GALLERY_CODE && resultCode == RESULT_OK) {
+            CropImage.activity().setGuidelines(CropImageView.Guidelines.ON).setAspectRatio(1, 1).start(this);
+        }
+
+        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
+            userImageUri = result.getUri();
+            userImageView.setImageURI(userImageUri);
+        }
     }
 
     private void updateUserInfo() {
         String name = nameEditText.getText().toString();
-        String status = statusEditext.getText().toString();
+        String status = statusEditText.getText().toString();
 
         if(TextUtils.isEmpty(name)) {
             Toast.makeText(SettingsActivity.this, "Enter a valid name", Toast.LENGTH_SHORT).show();
@@ -91,8 +130,63 @@ public class SettingsActivity extends AppCompatActivity {
             map.put(getString(R.string.Uid), currentUid);
             map.put(getString(R.string.Name), name);
             map.put(getString(R.string.Status), status);
-            rootRef.child(getString(R.string.Users)).child(currentUid).updateChildren(map);
+
+            loadingDialog.setTitle("Updating Profile Info");
+            loadingDialog.setMessage("Please Wait...");
+            loadingDialog.setCanceledOnTouchOutside(true);
+            loadingDialog.show();
+
+            updateUserImage();
+
+            rootRef.child(getString(R.string.Users)).child(currentUid).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        Toast.makeText(SettingsActivity.this, "Account updated Successfully", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = getIntent();
+                        finish();
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        startActivity(intent);
+                        loadingDialog.dismiss();
+                    }
+                    else {
+                        Toast.makeText(SettingsActivity.this, "ERROR: " + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                        loadingDialog.dismiss();
+                    }
+                }
+            });
         }
+    }
+
+    private void updateUserImage() {
+        if(userImageUri == null) { return; }
+
+        StorageReference imageRef = firebaseStorageRef.child("images").child(currentUid + ".image");
+        imageRef.putFile(userImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(SettingsActivity.this, "Image successfully uploaded to server", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        imageRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                final String uploadedImageUri = task.getResult().toString();
+                rootRef.child(getString(R.string.Users)).child(currentUid).child(getString(R.string.Image)).setValue(uploadedImageUri).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(!task.isSuccessful()) {
+                            Toast.makeText(SettingsActivity.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
+            }
+        });
+
     }
 
     private void retrieveDataFromDatabase() {
@@ -113,7 +207,7 @@ public class SettingsActivity extends AppCompatActivity {
                     String imageUri = imageSnapshot.getValue().toString();
 
                     nameEditText.setText(name);
-                    statusEditext.setText(status);
+                    statusEditText.setText(status);
                     Picasso.get().load(imageUri).into(userImageView);
                 }
                 else if(dataSnapshot.exists() && nameSnapshot.exists()) {

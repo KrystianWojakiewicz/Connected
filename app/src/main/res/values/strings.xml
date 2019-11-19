@@ -6,14 +6,14 @@
     <string name="my_profile_tab">My Profile</string>
     <string name="registration">Registration</string>
 
-    <string name="Users">Users</string>
-    <string name="Uid">Uid</string>
-    <string name="Name">Name</string>
-    <string name="Image">Image</string>
-    <string name="Email">Email</string>
-    <string name="Status">Status</string>
-    <string name="ImagesFolder">Images</string>
-    <string name="Groups">Groups</string>
-    <string name="Title">Title</string>
+    <string name="Users">users</string>
+    <string name="Uid">uid</string>
+    <string name="Name">name</string>
+    <string name="Image">image</string>
+    <string name="Email">email</string>
+    <string name="Status">status</string>
+    <string name="ImagesFolder">images</string>
+    <string name="Groups">groups</string>
+    <string name="Title">title</string>
     <string name="DefaultImage">default_avatar.png</string>
 </resources>

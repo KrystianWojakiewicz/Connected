@@ -2,42 +2,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:padding="3dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="90dp"
+        android:background="@drawable/rounded_filled_rect"
+        android:padding="1dp"
+        android:orientation="horizontal">
 
-    <com.theophrast.ui.widget.SquareImageView
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/userImageView"
-        android:layout_width="80dp"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/email"
-        app:hwRatio="1.0"
-        android:layout_marginStart="8dp" />
+        <com.theophrast.ui.widget.SquareImageView
+            android:id="@+id/userImageView"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/default_chat_icon"
+            app:hwRatio="1.0" />
 
-    <TextView
-        android:id="@+id/groupNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="187dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:breakStrategy="simple"
-        android:ellipsize="none"
-        android:gravity="fill_horizontal"
-        android:maxLines="100"
-        android:minHeight="?android:attr/listPreferredItemHeightSmall"
-        android:paddingStart="?android:attr/listPreferredItemPaddingStart"
-        android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
-        android:scrollHorizontally="false"
-        android:text="TextView"
-        android:textAppearance="?android:attr/textAppearanceListItemSmall"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        <TextView
+            android:id="@+id/groupNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
+            android:breakStrategy="simple"
+            android:ellipsize="none"
+            android:gravity="fill_horizontal"
+            android:maxLines="100"
+            android:minHeight="?android:attr/listPreferredItemHeightSmall"
+            android:paddingStart="?android:attr/listPreferredItemPaddingStart"
+            android:paddingEnd="?android:attr/listPreferredItemPaddingEnd"
+            android:scrollHorizontally="false"
+            android:text="TextView"
+            android:textAppearance="?android:attr/textAppearanceListItemSmall"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+
 </RelativeLayout>

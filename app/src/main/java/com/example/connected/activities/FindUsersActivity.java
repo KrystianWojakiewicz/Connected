@@ -53,8 +53,8 @@ public class FindUsersActivity extends AppCompatActivity {
         this.recyclerAdapter = new FirebaseRecyclerAdapter<Contact, FindUserRecyclerViewHolder>(recyclerOptions) {
             @Override
             protected void onBindViewHolder(@NonNull FindUserRecyclerViewHolder holder, int position, @NonNull Contact model) {
-                holder.username.setText(model.getEmail());
-//                holder.statusTextView.setText(model.getName());
+                holder.username.setText(model.getName());
+                holder.statusTextView.setText(model.getStatus());
             }
 
             @NonNull
@@ -74,14 +74,14 @@ public class FindUsersActivity extends AppCompatActivity {
     public static class FindUserRecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView username;
 //        TextView isActive;
-//        TextView statusTextView;
+        TextView statusTextView;
 
         public FindUserRecyclerViewHolder(@NonNull View itemView) {
             super(itemView);
 
             this.username = itemView.findViewById(R.id.usernameTextView);
-//            this.statusTextView = itemView.findViewById(R.id.statusTextView);
-//            this.isActive= itemView.findViewById(R.id.statusIcon);
+            this.statusTextView = itemView.findViewById(R.id.statusTextView);
+//            this.isActive = itemView.findViewById(R.id.statusIcon);
         }
     }
 }
