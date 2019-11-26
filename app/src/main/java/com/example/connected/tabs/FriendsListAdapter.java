@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.connected.DB.Contact;
 import com.example.connected.DB.User;
 import com.example.connected.R;
+import com.squareup.picasso.Picasso;
 import com.theophrast.ui.widget.SquareImageView;
 
 import java.util.ArrayList;
@@ -16,16 +18,17 @@ import java.util.List;
 
 public class FriendsListAdapter extends BaseAdapter {
     LayoutInflater mInflater = null;
-    List<User> users = new ArrayList<>();
+    List<Contact> friends = new ArrayList<>();
 
     private TextView usernameTextView;
     private TextView statusTextView;
     private TextView statusIcon;
     private SquareImageView userImageView;
 
-    public FriendsListAdapter(Context c) {
-        users.add(new User("krystian", false, "ICON"));
-        users.add(new User("filip", true, "ICON"));
+    public FriendsListAdapter(Context c, ArrayList<Contact> friends) {
+//        users.add(new User("krystian", false, "ICON"));
+//        users.add(new User("filip", true, "ICON"));
+        this.friends = friends;
         mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -38,12 +41,12 @@ public class FriendsListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return users.size();
+        return friends.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return users.get(position);
+        return friends.get(position);
     }
 
     @Override
@@ -56,12 +59,13 @@ public class FriendsListAdapter extends BaseAdapter {
         View v = mInflater.inflate(R.layout.users_list_layout, null);
         initializeViews(v);
 
-        User currUser = users.get(position);
+        Contact currUser = friends.get(position);
         usernameTextView.setText(currUser.getName());
+
         userImageView.setImageResource(R.drawable.default_avatar);
+        Picasso.get().load(this.friends.get(position).getImage()).into(this.userImageView);
 
-
-        statusTextView.setText(currUser.isActive());
+//        statusTextView.setText(currUser.isActive());
         statusIcon.setBackgroundResource(R.drawable.green_circle_drawable);
 //      statusIcon.setBackgroundResource(R.drawable.red_circle_drawable);
 

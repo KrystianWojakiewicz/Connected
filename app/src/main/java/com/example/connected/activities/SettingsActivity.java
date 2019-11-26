@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.text.method.KeyListener;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,7 +32,6 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 import com.theartofdev.edmodo.cropper.CropImage;
-import com.theartofdev.edmodo.cropper.CropImageActivity;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
@@ -85,7 +85,7 @@ public class SettingsActivity extends AppCompatActivity {
         this.saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateUserInfo();
+                updateUser();
             }
         });
 
@@ -115,7 +115,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    private void updateUserInfo() {
+    private void updateUser() {
         String name = nameEditText.getText().toString();
         String status = statusEditText.getText().toString();
 
@@ -126,43 +126,20 @@ public class SettingsActivity extends AppCompatActivity {
             Toast.makeText(SettingsActivity.this, "Enter a valid status", Toast.LENGTH_SHORT).show();
         }
         else {
-            HashMap<String, Object> map = new HashMap<>();
-            map.put(getString(R.string.Uid), currentUid);
-            map.put(getString(R.string.Name), name);
-            map.put(getString(R.string.Status), status);
-
             loadingDialog.setTitle("Updating Profile Info");
             loadingDialog.setMessage("Please Wait...");
             loadingDialog.setCanceledOnTouchOutside(true);
             loadingDialog.show();
 
             updateUserImage();
-
-            rootRef.child(getString(R.string.Users)).child(currentUid).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(SettingsActivity.this, "Account updated Successfully", Toast.LENGTH_SHORT).show();
-
-                        Intent intent = getIntent();
-                        finish();
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                        startActivity(intent);
-                        loadingDialog.dismiss();
-                    }
-                    else {
-                        Toast.makeText(SettingsActivity.this, "ERROR: " + task.getException().toString(), Toast.LENGTH_SHORT).show();
-                        loadingDialog.dismiss();
-                    }
-                }
-            });
+            updateUserInfo(name, status);
         }
     }
 
     private void updateUserImage() {
         if(userImageUri == null) { return; }
 
-        StorageReference imageRef = firebaseStorageRef.child("images").child(currentUid + ".image");
+        StorageReference imageRef = firebaseStorageRef.child(getString(R.string.ImagesFolder)).child(currentUid + ".image");
         imageRef.putFile(userImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
@@ -175,18 +152,46 @@ public class SettingsActivity extends AppCompatActivity {
         imageRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
-                final String uploadedImageUri = task.getResult().toString();
-                rootRef.child(getString(R.string.Users)).child(currentUid).child(getString(R.string.Image)).setValue(uploadedImageUri).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(!task.isSuccessful()) {
-                            Toast.makeText(SettingsActivity.this, "Error: " + task.getException(), Toast.LENGTH_SHORT).show();
+                if (task.isSuccessful()) {
+
+                    final String uploadedImageUri = task.getResult().toString();
+                    rootRef.child(getString(R.string.Users)).child(currentUid).child(getString(R.string.Image)).setValue(uploadedImageUri).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(!task.isSuccessful()) {
+                                Toast.makeText(SettingsActivity.this, "ERROR: " + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+                }
+                else {
+                    Log.i("Error", task.getException().toString());
+                }
             }
         });
+    }
 
+    private void updateUserInfo(String name, String status) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put(getString(R.string.Uid), currentUid);
+        map.put(getString(R.string.Name), name);
+        map.put(getString(R.string.Status), status);
+
+        rootRef.child(getString(R.string.Users)).child(currentUid).updateChildren(map).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    Toast.makeText(SettingsActivity.this, "Account updated Successfully", Toast.LENGTH_SHORT).show();
+
+                    recreate();
+                    loadingDialog.dismiss();
+                }
+                else {
+                    Toast.makeText(SettingsActivity.this, "ERROR: " + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                    loadingDialog.dismiss();
+                }
+            }
+        });
     }
 
     private void retrieveDataFromDatabase() {

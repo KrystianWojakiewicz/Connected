@@ -5,10 +5,8 @@ import android.app.Application;
 import android.os.Bundle;
 import android.util.Log;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-
 import com.google.firebase.auth.FirebaseAuth;
+
 
 public class MyApplication extends Application {
 
@@ -53,8 +51,8 @@ public class MyApplication extends Application {
             }
 
             @Override public void onActivityDestroyed(Activity activity) {
-//                mAuth = FirebaseAuth.getInstance();
-//                mAuth.signOut();
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
             }
         });
     }

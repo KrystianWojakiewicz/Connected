@@ -2,9 +2,12 @@ package com.example.connected.activities;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.example.connected.R;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabLayout;
 
 import androidx.annotation.NonNull;
@@ -27,12 +30,15 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 public class MainScreenActivity extends AppCompatActivity {
 
     private FirebaseUser currentUser;
     private FirebaseAuth mAuth;
     private DatabaseReference rootRef;
+    private StorageReference imagesStorageRef;
 
     private SectionsPagerAdapter mySectionsPagerAdapter;
     private ViewPager myViewPager;
@@ -54,6 +60,7 @@ public class MainScreenActivity extends AppCompatActivity {
         this.mAuth = FirebaseAuth.getInstance();
         this.currentUser = this.mAuth.getCurrentUser();
         this.rootRef = FirebaseDatabase.getInstance().getReference();
+        this.imagesStorageRef = FirebaseStorage.getInstance().getReference().child(getString(R.string.ImagesFolder));
     }
 
     @Override
@@ -67,6 +74,7 @@ public class MainScreenActivity extends AppCompatActivity {
 
     private void verifyIfUserExists() {
         if(currentUser == null) { return; }
+
 
         String currentUid = currentUser.getUid();
         this.rootRef.child(getString(R.string.Users)).child(currentUid).addValueEventListener(new ValueEventListener() {
@@ -167,8 +175,27 @@ public class MainScreenActivity extends AppCompatActivity {
         createGroupPopUp.show();
     }
 
-    private void createNewGroup(String groupName) {
-        rootRef.child("Groups").child(groupName).setValue("");
+    private void createNewGroup(final String groupName) {
+        final DatabaseReference newGroupRef = this.rootRef.child(getString(R.string.Groups)).child(groupName);
+
+        newGroupRef.setValue("");
+        this.imagesStorageRef.child(getString(R.string.DefaultChatImage)).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                if(task.isSuccessful()) {
+                    Uri chatImageUri = task.getResult();
+
+                    newGroupRef.child(getString(R.string.Image)).setValue(chatImageUri.toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()) {
+                                Toast.makeText(MainScreenActivity.this, "Group Created Successfully", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 
     private void goToFindUsersActivity() {

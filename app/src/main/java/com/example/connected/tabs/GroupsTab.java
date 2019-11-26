@@ -11,6 +11,7 @@ import android.widget.ListView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import com.example.connected.DB.Group;
 import com.example.connected.R;
 import com.example.connected.activities.GroupChatActivity;
 import com.google.firebase.database.DataSnapshot;
@@ -28,9 +29,9 @@ import java.util.Set;
 public class GroupsTab extends Fragment {
     DatabaseReference rootRef;
 
-    private ArrayList<String> groups = new ArrayList<>();
+    private ArrayList<Group> groups = new ArrayList<>();
     private ListView groupsListView;
-    private View groupsView;
+    private View groupsView;;
     private GroupsListAdapter myGroupsAdapter;
 //    private ArrayAdapter<String> arrayAdapter;
 
@@ -41,7 +42,6 @@ public class GroupsTab extends Fragment {
         this.groupsListView.setAdapter(this.myGroupsAdapter);
 //        this.arrayAdapter = new ArrayAdapter<>(getContext(), R.layout.groups_list_layout_old, groups);
 //        this.groupsListView.setAdapter(this.arrayAdapter);
-
     }
 
     @Override
@@ -56,7 +56,7 @@ public class GroupsTab extends Fragment {
         this.groupsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String currentGroupName = parent.getItemAtPosition(position).toString();
+                String currentGroupName = ((Group)parent.getItemAtPosition(position)).getName();
 
                 Intent goToGroupChatIntent = new Intent(groupsView.getContext(), GroupChatActivity.class);
                 goToGroupChatIntent.putExtra("groupName", currentGroupName);
@@ -72,11 +72,13 @@ public class GroupsTab extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Iterator iterator = dataSnapshot.getChildren().iterator();
-                Set<String> set = new HashSet<>();
+                Set<Group> set = new HashSet<>();
 
                 while (iterator.hasNext()) {
-                    String itGroup = ((DataSnapshot)iterator.next()).getKey();
-                    set.add(itGroup);
+                    DataSnapshot nextGroup = ((DataSnapshot)iterator.next());
+                    String itGroup = nextGroup.getKey();
+                    String imageUri = nextGroup.child("image").getValue().toString();
+                    set.add(new Group(itGroup, imageUri));
                 }
                 groups.clear();
                 groups.addAll(set);

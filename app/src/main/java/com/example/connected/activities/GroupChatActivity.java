@@ -37,7 +37,8 @@ public class GroupChatActivity extends AppCompatActivity {
     private EditText messageEditText;
 
 
-    private DatabaseReference groupNameRef;
+    private DatabaseReference groupMessagesRef;
+    private DatabaseReference rootRef;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
 
@@ -54,7 +55,8 @@ public class GroupChatActivity extends AppCompatActivity {
         String grpName = getIntent().getExtras().get("groupName").toString();
         getSupportActionBar().setTitle(grpName);
 
-        this.groupNameRef = FirebaseDatabase.getInstance().getReference().child("Groups").child(grpName);
+        this.rootRef = FirebaseDatabase.getInstance().getReference();
+        this.groupMessagesRef = this.rootRef.child(getString(R.string.Groups)).child(grpName).child(getString(R.string.Messages));
         this.mAuth = FirebaseAuth.getInstance();
         this.currentUser = this.mAuth.getCurrentUser();
     }
@@ -78,7 +80,7 @@ public class GroupChatActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        this.groupNameRef.addChildEventListener(new ChildEventListener() {
+        this.groupMessagesRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (dataSnapshot.exists()) {
@@ -117,7 +119,7 @@ public class GroupChatActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter a message before sending", Toast.LENGTH_SHORT).show();
         }
         else {
-            DatabaseReference messageKeyRef = groupNameRef.push();
+            DatabaseReference messageKeyRef = groupMessagesRef.push();
 
             Calendar calDate = Calendar.getInstance();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyy");

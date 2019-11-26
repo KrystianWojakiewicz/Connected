@@ -11,9 +11,12 @@
     <string name="Name">name</string>
     <string name="Image">image</string>
     <string name="Email">email</string>
+    <string name="Friends">friends</string>
     <string name="Status">status</string>
     <string name="ImagesFolder">images</string>
     <string name="Groups">groups</string>
     <string name="Title">title</string>
     <string name="DefaultImage">default_avatar.png</string>
+    <string name="Messages">messages</string>
+    <string name="DefaultChatImage">default_chat_icon.png</string>
 </resources>
