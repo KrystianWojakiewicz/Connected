@@ -40,7 +40,7 @@
             android:layout_width="89dp"
             android:layout_height="29dp"
             android:layout_marginStart="35dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="25dp"
             android:gravity="center"
             android:text="TextView"
             android:textSize="18sp"
@@ -52,10 +52,10 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:background="@drawable/app_buttons_drawable"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="25dp"
                 android:elevation="15in"
                 android:gravity="center" />
 

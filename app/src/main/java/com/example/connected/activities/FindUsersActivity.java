@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.connected.DB.Contact;
+import com.example.connected.FindUsersAdapter;
 import com.example.connected.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -22,18 +23,23 @@ public class FindUsersActivity extends AppCompatActivity {
 
     private RecyclerView myRecyclerView;
     private Toolbar myToolbar;
+    private FindUsersAdapter myAdapter;
 
     private FirebaseRecyclerAdapter<Contact, FindUserRecyclerViewHolder> recyclerAdapter;
     private FirebaseRecyclerOptions<Contact> recyclerOptions;
     private DatabaseReference usersRoot;
+
+    private void initializeViews() {
+        this.myRecyclerView = findViewById(R.id.myRecyclerView);
+        this.myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_find_users);
 
-        this.myRecyclerView = findViewById(R.id.myRecyclerView);
-        this.myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
 
         this.myToolbar = findViewById(R.id.find_user_toolbar);
         setSupportActionBar(this.myToolbar);
