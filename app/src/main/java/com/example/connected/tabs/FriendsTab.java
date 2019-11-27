@@ -1,5 +1,6 @@
 package com.example.connected.tabs;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -9,13 +10,16 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.connected.DB.Contact;
 import com.example.connected.R;
+import com.example.connected.activities.LoginActivity;
 import com.example.connected.activities.MessageViewActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,14 +32,14 @@ import java.util.Iterator;
 import java.util.Set;
 
 public class FriendsTab extends Fragment {
-    View friendsView;
-    ArrayList<Contact> friends = new ArrayList<>();
-    FriendsListAdapter myAdapter;
+    private View friendsView;
+    private ArrayList<Contact> friends = new ArrayList<>();
+    private FriendsListAdapter myAdapter;
 
-    DatabaseReference rootRef;
-    DatabaseReference usersRef;
-    FirebaseUser currUser;
-    String currUid;
+    private DatabaseReference rootRef;
+    private DatabaseReference usersRef;
+    private FirebaseUser currUser;
+    private String currUid;
 
     @Override
     public View onCreateView(
@@ -43,14 +47,14 @@ public class FriendsTab extends Fragment {
             Bundle savedInstanceState) {
         this.friendsView = inflater.inflate(R.layout.friends_fragment, container, false);
 
+        myAdapter = new FriendsListAdapter(getContext(), this.friends);
         rootRef = FirebaseDatabase.getInstance().getReference();
         currUser = FirebaseAuth.getInstance().getCurrentUser();
-        currUid = currUser.getUid();
         usersRef = rootRef.child(getString(R.string.Users));
 
 
         ListView friendsListView = friendsView.findViewById(R.id.groupsListView);
-        FriendsListAdapter friendsListAdapter = new FriendsListAdapter(friendsView.getContext(), this.friends);
+        this.myAdapter = new FriendsListAdapter(friendsView.getContext(), this.friends);
         friendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -59,11 +63,15 @@ public class FriendsTab extends Fragment {
             }
         });
 
-        friendsListView.setAdapter(friendsListAdapter);
+        friendsListView.setAdapter(myAdapter);
+        requestFriendsFromDatabase();
         return friendsView;
     }
 
     private void requestFriendsFromDatabase() {
+        if(currUser == null) { return; }
+        currUid = currUser.getUid();
+
         rootRef.child(getString(R.string.Users)).child(currUid).child(getString(R.string.Friends)).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
@@ -72,9 +80,12 @@ public class FriendsTab extends Fragment {
 
                 while (iterator.hasNext()) {
                     DataSnapshot nextFriend = ((DataSnapshot)iterator.next());
-                    String name = nextFriend.child("name").getValue().toString();
-                    String image = nextFriend.child("image").getValue().toString();
-                    set.add(new Contact(name, image, "ONLINE"));
+                    if(nextFriend.child("name").getValue() != null) {
+                        String name = nextFriend.child("name").getValue().toString();
+                        String image = nextFriend.child("image").getValue().toString();
+                        String status = nextFriend.child("status").getValue().toString();
+                        set.add(new Contact(name, image, status));
+                    }
                 }
                 friends.clear();
                 friends.addAll(set);

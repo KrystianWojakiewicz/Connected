@@ -80,7 +80,6 @@ public class SettingsActivity extends AppCompatActivity {
         nameEditListener = nameEditText.getKeyListener();
         nameEditText.setKeyListener(null);
 
-        retrieveDataFromDatabase();
 
         this.saveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,6 +97,8 @@ public class SettingsActivity extends AppCompatActivity {
                 startActivityForResult(chooseImageIntent, GALLERY_CODE);
             }
         });
+
+        retrieveDataFromDatabase();
     }
 
     @Override
@@ -110,8 +111,14 @@ public class SettingsActivity extends AppCompatActivity {
 
         if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
-            userImageUri = result.getUri();
-            userImageView.setImageURI(userImageUri);
+            try {
+                userImageUri = result.getUri();
+                userImageView.setImageURI(userImageUri);
+            }
+            catch (Exception e) {
+                e.getStackTrace();
+                System.out.println("Bad result from CropImage");
+            }
         }
     }
 
@@ -139,36 +146,38 @@ public class SettingsActivity extends AppCompatActivity {
     private void updateUserImage() {
         if(userImageUri == null) { return; }
 
-        StorageReference imageRef = firebaseStorageRef.child(getString(R.string.ImagesFolder)).child(currentUid + ".image");
+        final StorageReference imageRef = firebaseStorageRef.child(getString(R.string.ImagesFolder)).child(currentUid + ".image");
         imageRef.putFile(userImageUri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(SettingsActivity.this, "Image successfully uploaded to server", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
 
-        imageRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                if (task.isSuccessful()) {
-
-                    final String uploadedImageUri = task.getResult().toString();
-                    rootRef.child(getString(R.string.Users)).child(currentUid).child(getString(R.string.Image)).setValue(uploadedImageUri).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    imageRef.getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                         @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if(!task.isSuccessful()) {
-                                Toast.makeText(SettingsActivity.this, "ERROR: " + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful()) {
+
+                                final String uploadedImageUri = task.getResult().toString();
+                                rootRef.child(getString(R.string.Users)).child(currentUid).child(getString(R.string.Image)).setValue(uploadedImageUri).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(!task.isSuccessful()) {
+                                            Toast.makeText(SettingsActivity.this, "ERROR: " + task.getException().toString(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                });
+                            }
+                            else {
+                                Log.i("Error", task.getException().toString());
                             }
                         }
                     });
                 }
-                else {
-                    Log.i("Error", task.getException().toString());
-                }
             }
         });
+
+
     }
 
     private void updateUserInfo(String name, String status) {
@@ -183,7 +192,7 @@ public class SettingsActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(SettingsActivity.this, "Account updated Successfully", Toast.LENGTH_SHORT).show();
 
-                    recreate();
+//                    recreate();
                     loadingDialog.dismiss();
                 }
                 else {
@@ -223,8 +232,8 @@ public class SettingsActivity extends AppCompatActivity {
                     Picasso.get().load(imageUri).into(userImageView);
                 }
                 else {
-                    String imageUri = imageSnapshot.getValue().toString();
-                    Picasso.get().load(imageUri).into(userImageView);
+//                    String imageUri = imageSnapshot.getValue().toString();
+//                    Picasso.get().load(imageUri).into(userImageView);
 
                     nameEditText.setKeyListener(nameEditListener);
                     Toast.makeText(SettingsActivity.this, "Please Let us know who you are", Toast.LENGTH_SHORT).show();

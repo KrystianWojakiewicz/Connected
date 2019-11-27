@@ -67,8 +67,8 @@ public class MainScreenActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_screen);
-        initializeViews();
 
+        initializeViews();
         verifyIfUserExists();
     }
 
@@ -96,20 +96,20 @@ public class MainScreenActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        getMenuInflater().inflate(R.menu.option_menu, menu);
-        return true;
-    }
-
-    @Override
     protected void onStart() {
         super.onStart();
 
         if(currentUser == null) {
             goToLoginActivity();
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        getMenuInflater().inflate(R.menu.option_menu, menu);
+        return true;
     }
 
     @Override
@@ -179,6 +179,8 @@ public class MainScreenActivity extends AppCompatActivity {
         final DatabaseReference newGroupRef = this.rootRef.child(getString(R.string.Groups)).child(groupName);
 
         newGroupRef.setValue("");
+        newGroupRef.child(getString(R.string.Messages)).setValue("");
+        newGroupRef.child(getString(R.string.Members)).setValue("");
         this.imagesStorageRef.child(getString(R.string.DefaultChatImage)).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
             @Override
             public void onComplete(@NonNull Task<Uri> task) {
@@ -213,6 +215,6 @@ public class MainScreenActivity extends AppCompatActivity {
         Intent loginScreenIntent = new Intent(getApplicationContext(), LoginActivity.class);
         loginScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginScreenIntent);
-        finish();
+//        finish();
     }
 }

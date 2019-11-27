@@ -76,9 +76,11 @@ public class GroupsTab extends Fragment {
 
                 while (iterator.hasNext()) {
                     DataSnapshot nextGroup = ((DataSnapshot)iterator.next());
-                    String itGroup = nextGroup.getKey();
-                    String imageUri = nextGroup.child("image").getValue().toString();
-                    set.add(new Group(itGroup, imageUri));
+                    if(nextGroup.child("image").getValue() != null) {
+                        String itGroup = nextGroup.getKey();
+                        String imageUri = nextGroup.child("image").getValue().toString();
+                        set.add(new Group(itGroup, imageUri));
+                    }
                 }
                 groups.clear();
                 groups.addAll(set);

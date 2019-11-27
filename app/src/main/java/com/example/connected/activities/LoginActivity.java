@@ -101,20 +101,11 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        if (currentUser != null) {
-            goToMainScreenActivity();
-        }
-
-    }
-
     private void goToMainScreenActivity() {
         Intent loginScreenIntent = new Intent(getApplicationContext(), MainScreenActivity.class);
-        loginScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//        loginScreenIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(loginScreenIntent);
-        finish();
+//        finish();
     }
 //
 //    private class QueryLogin extends AsyncTask<String,String,String> {

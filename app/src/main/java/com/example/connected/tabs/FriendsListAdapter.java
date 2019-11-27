@@ -10,26 +10,29 @@ import android.widget.TextView;
 import com.example.connected.DB.Contact;
 import com.example.connected.DB.User;
 import com.example.connected.R;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 import com.theophrast.ui.widget.SquareImageView;
 
 import java.util.ArrayList;
-import java.util.List;
+
 
 public class FriendsListAdapter extends BaseAdapter {
-    LayoutInflater mInflater = null;
-    List<Contact> friends = new ArrayList<>();
+    private LayoutInflater mInflater;
+    private ArrayList<Contact> friends;
 
     private TextView usernameTextView;
     private TextView statusTextView;
     private TextView statusIcon;
     private SquareImageView userImageView;
 
+    private DatabaseReference rootRef;
+
     public FriendsListAdapter(Context c, ArrayList<Contact> friends) {
-//        users.add(new User("krystian", false, "ICON"));
-//        users.add(new User("filip", true, "ICON"));
         this.friends = friends;
         mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        rootRef = FirebaseDatabase.getInstance().getReference();
     }
 
     private void initializeViews(View v) {
@@ -41,12 +44,12 @@ public class FriendsListAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return friends.size();
+        return this.friends.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return friends.get(position);
+        return this.friends.get(position);
     }
 
     @Override
@@ -66,6 +69,8 @@ public class FriendsListAdapter extends BaseAdapter {
         Picasso.get().load(this.friends.get(position).getImage()).into(this.userImageView);
 
 //        statusTextView.setText(currUser.isActive());
+
+        
         statusIcon.setBackgroundResource(R.drawable.green_circle_drawable);
 //      statusIcon.setBackgroundResource(R.drawable.red_circle_drawable);
 
