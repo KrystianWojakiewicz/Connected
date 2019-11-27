@@ -70,7 +70,7 @@ public class FriendsListAdapter extends BaseAdapter {
 
 //        statusTextView.setText(currUser.isActive());
 
-        
+
         statusIcon.setBackgroundResource(R.drawable.green_circle_drawable);
 //      statusIcon.setBackgroundResource(R.drawable.red_circle_drawable);
 

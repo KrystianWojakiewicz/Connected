@@ -17,11 +17,13 @@
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
 
-        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+        <activity
+            android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat"> <!-- optional (needed if default theme has no action bar) -->
 
         </activity>
-        <activity android:name=".activities.SettingsActivity"
+        <activity
+            android:name=".activities.SettingsActivity"
             android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
@@ -40,7 +42,9 @@
             android:label="@string/registration">
 
         </activity>
-        <activity android:name=".activities.MessageViewActivity">
+        <activity
+            android:name=".activities.MessageViewActivity"
+            android:theme="@style/AppTheme.NoActionBar">
 
         </activity>
         <activity

@@ -54,11 +54,13 @@ public class FriendsTab extends Fragment {
 
 
         ListView friendsListView = friendsView.findViewById(R.id.groupsListView);
-        this.myAdapter = new FriendsListAdapter(friendsView.getContext(), this.friends);
         friendsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent messageViewIntent = new Intent(friendsView.getContext(), MessageViewActivity.class);
+
+                String friendName = ((Contact) parent.getItemAtPosition(position)).getName();
+                messageViewIntent.putExtra("friendName", friendName);
                 startActivity(messageViewIntent);
             }
         });

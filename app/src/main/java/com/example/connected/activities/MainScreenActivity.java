@@ -48,7 +48,7 @@ public class MainScreenActivity extends AppCompatActivity {
     private void initializeViews() {
         this.myToolbar = findViewById(R.id.main_screen_toolbar);
         setSupportActionBar(this.myToolbar);
-        getSupportActionBar().setTitle("Echo");
+        getSupportActionBar().setTitle(getString(R.string.app_name));
 
         this.myViewPager = findViewById(R.id.view_pager);
         this.mySectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
