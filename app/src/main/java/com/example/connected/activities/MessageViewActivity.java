@@ -8,7 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ScrollView;
@@ -39,12 +38,14 @@ public class MessageViewActivity extends AppCompatActivity {
     private ScrollView privateChatScrollView;
     private TextView chatMsgDisplay;
 
-    private DatabaseReference privateMessagesRef;
+    private DatabaseReference myPrivateMessagesRef;
+    private DatabaseReference yourPrivateMessagesRef;
     private DatabaseReference rootRef;
     private FirebaseAuth mAuth;
     private FirebaseUser currentUser;
     private DatabaseReference usersRoot;
     private String currentUid;
+    private String currentUsername;
 
 
     private void initializeViews() {
@@ -60,6 +61,22 @@ public class MessageViewActivity extends AppCompatActivity {
         this.currentUser = this.mAuth.getCurrentUser();
         this.currentUid = currentUser.getUid();
         this.usersRoot = this.rootRef.child(getString(R.string.Users));
+//        final String friendUid = getIntent().getExtras().get("friendUid").toString();
+
+//        usersRoot.child(currentUid).addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                if (dataSnapshot.exists()) {
+//                    currentUsername = dataSnapshot.child("name").getValue().toString();
+//                    yourPrivateMessagesRef = usersRoot.child(friendUid).child(getString(R.string.Messages)).child(currentUsername);
+//                }
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
     }
 
     @Override
@@ -69,11 +86,14 @@ public class MessageViewActivity extends AppCompatActivity {
 
         initializeViews();
 
-        setSupportActionBar(this.myToolbar);
         String friendName = getIntent().getExtras().get("friendName").toString();
+        String friendUid = getIntent().getExtras().get("friendUid").toString();
+
+        setSupportActionBar(this.myToolbar);
         getSupportActionBar().setTitle(friendName);
 
-        this.privateMessagesRef = usersRoot.child(currentUid).child(getString(R.string.Messages)).child(friendName);
+        this.myPrivateMessagesRef = usersRoot.child(currentUid).child(getString(R.string.Messages)).child(friendUid);
+        this.yourPrivateMessagesRef = usersRoot.child(friendUid).child(getString(R.string.Messages)).child(currentUid);
 
         this.sendMsgButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,29 +102,13 @@ public class MessageViewActivity extends AppCompatActivity {
                 messageEditText.setText("");
             }
         });
-
-        usersRoot.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                Iterator iterator = dataSnapshot.getChildren().iterator();
-                while(iterator.hasNext()) {
-                    DataSnapshot nextUser = ((DataSnapshot)iterator.next());
-                    //TODO: find a specific user to update the messages
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
     }
 
     @Override
     protected void onStart() {
         super.onStart();
 
-        this.privateMessagesRef.addChildEventListener(new ChildEventListener() {
+        this.myPrivateMessagesRef.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
                 if (dataSnapshot.exists()) {
@@ -143,7 +147,8 @@ public class MessageViewActivity extends AppCompatActivity {
             Toast.makeText(this, "Please enter a message before sending", Toast.LENGTH_SHORT).show();
         }
         else {
-            DatabaseReference messageKeyRef = privateMessagesRef.push();
+            DatabaseReference myMessageKeyRef = myPrivateMessagesRef.push();
+            DatabaseReference yourMessageKeyRef = yourPrivateMessagesRef.push();
 
             Calendar calDate = Calendar.getInstance();
             SimpleDateFormat dateFormat = new SimpleDateFormat("dd.mm.yyyy");
@@ -155,11 +160,20 @@ public class MessageViewActivity extends AppCompatActivity {
 
             HashMap<String, Object> messageToSend = new HashMap<>();
 
-            messageToSend.put("Name", this.currentUser.getEmail());
-            messageToSend.put("Date", date);
-            messageToSend.put("Time", time);
-            messageToSend.put("Msg", message);
-            messageKeyRef.updateChildren(messageToSend).addOnCompleteListener(new OnCompleteListener<Void>() {
+            messageToSend.put("name", this.currentUser.getEmail());
+            messageToSend.put("date", date);
+            messageToSend.put("time", time);
+            messageToSend.put("msg", message);
+            myMessageKeyRef.updateChildren(messageToSend).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()) {
+                        Toast.makeText(MessageViewActivity.this, "Message sent Successfully", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            });
+
+            yourMessageKeyRef.updateChildren(messageToSend).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()) {

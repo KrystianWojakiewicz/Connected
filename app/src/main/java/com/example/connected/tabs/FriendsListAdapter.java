@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.connected.DB.Contact;
-import com.example.connected.DB.User;
 import com.example.connected.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -69,7 +68,6 @@ public class FriendsListAdapter extends BaseAdapter {
         Picasso.get().load(this.friends.get(position).getImage()).into(this.userImageView);
 
 //        statusTextView.setText(currUser.isActive());
-
 
         statusIcon.setBackgroundResource(R.drawable.green_circle_drawable);
 //      statusIcon.setBackgroundResource(R.drawable.red_circle_drawable);

@@ -86,8 +86,7 @@ public class FindUsersAdapter extends BaseAdapter {
         map.put("name", currUserEntry.getName());
         map.put("image", currUserEntry.getImage());
         map.put("status", currUserEntry.getStatus());
-//        map.put("uid", currUserEntry.getStatus());
-        //TODO: Add a uid field to Contact class
+        map.put("uid", currUserEntry.getUid());
 
         currFriendRef.updateChildren(map);
     }

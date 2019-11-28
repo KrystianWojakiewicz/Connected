@@ -84,10 +84,16 @@ public class FindUsersActivity extends AppCompatActivity {
                     Object uidObject = nextUser.child("uid").getValue();
                     Object nameObject = nextUser.child("name").getValue();
 
-                    if ( nameObject != null && !uidObject.toString().equals(currentUid)) {
+                    if(uidObject.toString().equals(currentUid)) {
+                        continue;
+                    }
+
+                    if (nameObject != null) {
                         String name = nextUser.child("name").getValue().toString();
                         String image = nextUser.child("image").getValue().toString();
-                        set.add(new Contact(name, image,""));
+                        String status = nextUser.child("status").getValue().toString();
+                        String uid = nextUser.child("uid").getValue().toString();
+                        set.add(new Contact(name, image,status, uid));
                     }
 
                 }

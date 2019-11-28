@@ -80,10 +80,7 @@ public class MainScreenActivity extends AppCompatActivity {
         this.rootRef.child(getString(R.string.Users)).child(currentUid).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(dataSnapshot.child(getString(R.string.Name)).exists()) {
-                    Toast.makeText(MainScreenActivity.this, "Welcome Back", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                if(!dataSnapshot.child(getString(R.string.Name)).exists()) {
                     goToSettingsActivity();
                 }
             }

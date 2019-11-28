@@ -1,6 +1,5 @@
 package com.example.connected.tabs;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,16 +9,13 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.connected.DB.Contact;
 import com.example.connected.R;
-import com.example.connected.activities.LoginActivity;
 import com.example.connected.activities.MessageViewActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,13 +27,13 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
+
 public class FriendsTab extends Fragment {
     private View friendsView;
     private ArrayList<Contact> friends = new ArrayList<>();
     private FriendsListAdapter myAdapter;
 
     private DatabaseReference rootRef;
-    private DatabaseReference usersRef;
     private FirebaseUser currUser;
     private String currUid;
 
@@ -50,7 +46,6 @@ public class FriendsTab extends Fragment {
         myAdapter = new FriendsListAdapter(getContext(), this.friends);
         rootRef = FirebaseDatabase.getInstance().getReference();
         currUser = FirebaseAuth.getInstance().getCurrentUser();
-        usersRef = rootRef.child(getString(R.string.Users));
 
 
         ListView friendsListView = friendsView.findViewById(R.id.groupsListView);
@@ -60,7 +55,10 @@ public class FriendsTab extends Fragment {
                 Intent messageViewIntent = new Intent(friendsView.getContext(), MessageViewActivity.class);
 
                 String friendName = ((Contact) parent.getItemAtPosition(position)).getName();
+                String friendUid = ((Contact) parent.getItemAtPosition(position)).getUid();
+
                 messageViewIntent.putExtra("friendName", friendName);
+                messageViewIntent.putExtra("friendUid", friendUid);
                 startActivity(messageViewIntent);
             }
         });
@@ -86,7 +84,8 @@ public class FriendsTab extends Fragment {
                         String name = nextFriend.child("name").getValue().toString();
                         String image = nextFriend.child("image").getValue().toString();
                         String status = nextFriend.child("status").getValue().toString();
-                        set.add(new Contact(name, image, status));
+                        String uid = nextFriend.child("uid").getValue().toString();
+                        set.add(new Contact(name, image, status, uid));
                     }
                 }
                 friends.clear();

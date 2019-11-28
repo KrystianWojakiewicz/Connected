@@ -131,10 +131,10 @@ public class GroupChatActivity extends AppCompatActivity {
 
             HashMap<String, Object> messageToSend = new HashMap<>();
 
-            messageToSend.put("Name", this.currentUser.getEmail());
-            messageToSend.put("Date", date);
-            messageToSend.put("Time", time);
-            messageToSend.put("Msg", message);
+            messageToSend.put("name", this.currentUser.getEmail());
+            messageToSend.put("date", date);
+            messageToSend.put("time", time);
+            messageToSend.put("msg", message);
             messageKeyRef.updateChildren(messageToSend);
         }
     }

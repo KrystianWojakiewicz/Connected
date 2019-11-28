@@ -4,15 +4,17 @@ public class Contact {
     public String name;
     public String image;
     public String status;
+    public String uid;
 
     public Contact() {
 
     }
 
-    public Contact(String name, String image, String status) {
+    public Contact(String name, String image, String status, String uid) {
         this.name = name;
         this.image = image;
         this.status = status;
+        this.uid = uid;
     }
 
     public String getName() {
@@ -33,6 +35,14 @@ public class Contact {
 
     public String getStatus() {
         return status;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public void setStatus(String status) {
