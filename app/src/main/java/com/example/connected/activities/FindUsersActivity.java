@@ -18,6 +18,7 @@ import com.example.connected.FindUsersAdapter;
 import com.example.connected.R;
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -41,10 +42,15 @@ public class FindUsersActivity extends AppCompatActivity {
     private FirebaseRecyclerOptions<Contact> recyclerOptions;
     private DatabaseReference usersRoot;
     private DatabaseReference rootRef;
+    private String currentUid;
+    private String currentUsername;
+    private FirebaseAuth mAuth;
 
     private void initializeViews() {
         this.rootRef = FirebaseDatabase.getInstance().getReference();
         this.usersRoot = rootRef.child(getString(R.string.Users));
+        this.mAuth = FirebaseAuth.getInstance();
+        this.currentUid = mAuth.getCurrentUser().getUid();
 
         this.foundUsersListView = findViewById(R.id.findUsersListView);
 //        this.myRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -75,7 +81,10 @@ public class FindUsersActivity extends AppCompatActivity {
 
                 while (iterator.hasNext()) {
                     DataSnapshot nextUser = ((DataSnapshot)iterator.next());
-                    if (nextUser.child("name").getValue() != null) {
+                    Object uidObject = nextUser.child("uid").getValue();
+                    Object nameObject = nextUser.child("name").getValue();
+
+                    if ( nameObject != null && !uidObject.toString().equals(currentUid)) {
                         String name = nextUser.child("name").getValue().toString();
                         String image = nextUser.child("image").getValue().toString();
                         set.add(new Contact(name, image,""));
