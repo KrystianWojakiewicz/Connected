@@ -22,7 +22,6 @@ public class FriendsListAdapter extends BaseAdapter {
     private ArrayList<Contact> friends;
 
     private TextView usernameTextView;
-    private TextView statusTextView;
     private TextView statusIcon;
     private SquareImageView userImageView;
 
@@ -36,7 +35,6 @@ public class FriendsListAdapter extends BaseAdapter {
 
     private void initializeViews(View v) {
         this.usernameTextView = v.findViewById(R.id.usernameTextView);
-        this.statusTextView = v.findViewById(R.id.statusTextView);
         this.statusIcon = v.findViewById(R.id.statusIcon);
         this.userImageView = v.findViewById(R.id.userImageView);
     }
@@ -67,10 +65,7 @@ public class FriendsListAdapter extends BaseAdapter {
         userImageView.setImageResource(R.drawable.default_avatar);
         Picasso.get().load(this.friends.get(position).getImage()).into(this.userImageView);
 
-//        statusTextView.setText(currUser.isActive());
-
         statusIcon.setBackgroundResource(R.drawable.green_circle_drawable);
-//      statusIcon.setBackgroundResource(R.drawable.red_circle_drawable);
 
         return v;
     }

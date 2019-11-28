@@ -24,7 +24,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -45,7 +44,6 @@ public class MessageViewActivity extends AppCompatActivity {
     private FirebaseUser currentUser;
     private DatabaseReference usersRoot;
     private String currentUid;
-    private String currentUsername;
 
 
     private void initializeViews() {
@@ -61,22 +59,6 @@ public class MessageViewActivity extends AppCompatActivity {
         this.currentUser = this.mAuth.getCurrentUser();
         this.currentUid = currentUser.getUid();
         this.usersRoot = this.rootRef.child(getString(R.string.Users));
-//        final String friendUid = getIntent().getExtras().get("friendUid").toString();
-
-//        usersRoot.child(currentUid).addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                if (dataSnapshot.exists()) {
-//                    currentUsername = dataSnapshot.child("name").getValue().toString();
-//                    yourPrivateMessagesRef = usersRoot.child(friendUid).child(getString(R.string.Messages)).child(currentUsername);
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
     }
 
     @Override
