@@ -78,6 +78,7 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Profile Settings");
 
         nameEditListener = nameEditText.getKeyListener();
+        nameEditText.setAlpha(.6f);
         nameEditText.setKeyListener(null);
 
 
@@ -176,8 +177,6 @@ public class SettingsActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
 
     private void updateUserInfo(String name, String status) {
@@ -192,7 +191,6 @@ public class SettingsActivity extends AppCompatActivity {
                 if (task.isSuccessful()) {
                     Toast.makeText(SettingsActivity.this, "Account updated Successfully", Toast.LENGTH_SHORT).show();
 
-//                    recreate();
                     loadingDialog.dismiss();
                 }
                 else {
@@ -232,11 +230,12 @@ public class SettingsActivity extends AppCompatActivity {
                     Picasso.get().load(imageUri).into(userImageView);
                 }
                 else {
-//                    String imageUri = imageSnapshot.getValue().toString();
-//                    Picasso.get().load(imageUri).into(userImageView);
+                    String imageUri = imageSnapshot.getValue().toString();
+                    Picasso.get().load(imageUri).into(userImageView);
 
                     nameEditText.setKeyListener(nameEditListener);
-                    Toast.makeText(SettingsActivity.this, "Please Let us know who you are", Toast.LENGTH_SHORT).show();
+                    nameEditText.setAlpha(1.0f);
+                    Toast.makeText(SettingsActivity.this, "Please Let us know who you are", Toast.LENGTH_LONG).show();
                 }
             }
 

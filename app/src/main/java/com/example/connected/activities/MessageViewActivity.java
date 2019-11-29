@@ -159,7 +159,7 @@ public class MessageViewActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()) {
-                        Toast.makeText(MessageViewActivity.this, "Message sent Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MessageViewActivity.this, "Message received Successfully", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

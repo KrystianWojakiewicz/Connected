@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.connected.R;
@@ -30,6 +31,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText loginEditText;
     EditText passwordEditText;
+    TextView alreadyHaveAccTextView;
     ProgressDialog progressDialog;
     Button registerBtn;
 
@@ -43,7 +45,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         this.loginEditText = findViewById(R.id.loginEditText);
         this.passwordEditText = findViewById(R.id.passwordEditText);
-
+        this.alreadyHaveAccTextView = findViewById(R.id.alreadyHaveAccTextView);
         this.registerBtn = findViewById(R.id.registerBtn);
     }
 
@@ -57,6 +59,13 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 createNewUser();
+            }
+        });
+
+        this.alreadyHaveAccTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToLoginActivity();
             }
         });
 
