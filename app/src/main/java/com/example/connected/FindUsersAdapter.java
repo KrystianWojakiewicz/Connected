@@ -9,9 +9,11 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.connected.DB.Contact;
 import com.example.connected.activities.SettingsActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -97,7 +99,12 @@ public class FindUsersAdapter extends BaseAdapter {
         map.put("status", currUserEntry.getStatus());
         map.put("uid", currUserEntry.getUid());
 
-        currFriendRef.updateChildren(map);
+        currFriendRef.updateChildren(map).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(context, "Friend Added Successfully", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void goToSettingsActivity(Contact currUserEntry) {

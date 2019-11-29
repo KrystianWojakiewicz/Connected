@@ -75,21 +75,33 @@
                 android:id="@+id/statusIcon"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_marginStart="80dp"
+                android:layout_marginStart="75dp"
                 android:layout_marginTop="14dp"
                 android:elevation="15in"
                 android:gravity="center" />
 
-            <TextView
-                android:id="@+id/statusTextView"
-                android:layout_width="88dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="45dp"
-                android:layout_marginTop="14dp"
-                android:layout_marginEnd="23dp"
+<!--            <TextView-->
+<!--                android:id="@+id/statusTextView"-->
+<!--                android:layout_width="88dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="45dp"-->
+<!--                android:layout_marginTop="14dp"-->
+<!--                android:layout_marginEnd="23dp"-->
+<!--                android:gravity="center"-->
+<!--                android:text="TextView"-->
+<!--                android:textStyle="bold" />-->
+            <Button
+                android:id="@+id/unfriendButton"
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:layout_marginStart="40dp"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/app_buttons_drawable"
+                android:elevation="15in"
                 android:gravity="center"
-                android:text="TextView"
-                android:textStyle="bold" />
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:text="Unfriend" />
         </LinearLayout>
 
     </LinearLayout>

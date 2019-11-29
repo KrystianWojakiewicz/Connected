@@ -8,10 +8,16 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.connected.DB.Contact;
 import com.example.connected.R;
 import com.example.connected.activities.SettingsActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 import com.theophrast.ui.widget.SquareImageView;
 
@@ -28,6 +34,10 @@ public class FriendsListAdapter extends BaseAdapter {
     private TextView statusIcon;
     private SquareImageView userImageView;
 
+    private FirebaseAuth mAuth;
+    private FirebaseUser currUser;
+    private DatabaseReference rootRef;
+
 
     public FriendsListAdapter(Context c, ArrayList<Contact> friends) {
         this.friends = friends;
@@ -39,6 +49,10 @@ public class FriendsListAdapter extends BaseAdapter {
         this.usernameTextView = v.findViewById(R.id.usernameTextView);
         this.statusIcon = v.findViewById(R.id.statusIcon);
         this.userImageView = v.findViewById(R.id.userImageView);
+
+        mAuth = FirebaseAuth.getInstance();
+        currUser = mAuth.getCurrentUser();
+        rootRef = FirebaseDatabase.getInstance().getReference();
     }
 
     @Override
@@ -77,6 +91,13 @@ public class FriendsListAdapter extends BaseAdapter {
             }
         });
 
+        Button unfriendButton = v.findViewById(R.id.unfriendButton);
+        unfriendButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                deleteFriend(currUserEntry);
+            }
+        });
 
         return v;
     }
@@ -86,5 +107,15 @@ public class FriendsListAdapter extends BaseAdapter {
         goToSettingsIntent.putExtra("uid", currUserEntry.getUid());
         goToSettingsIntent.putExtra("editable", false);
         context.startActivity(goToSettingsIntent);
+    }
+
+    private void deleteFriend(Contact currUserEntry) {
+        DatabaseReference friendToDelete = rootRef.child("users").child(currUser.getUid()).child("friends").child(currUserEntry.getName());
+        friendToDelete.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Toast.makeText(context, "Friend Deleted Successfully", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 }
