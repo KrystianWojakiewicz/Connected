@@ -53,11 +53,13 @@ public class SettingsActivity extends AppCompatActivity {
 
     final int GALLERY_CODE = 1;
 
+
+
     private void initializeView() {
         this.firebaseStorageRef = FirebaseStorage.getInstance().getReference();
         this.rootRef = FirebaseDatabase.getInstance().getReference();
         this.mAuth = FirebaseAuth.getInstance();
-        this.currentUid = this.mAuth.getCurrentUser().getUid();
+        this.currentUid = getIntent().getExtras().get("uid").toString();
 
         saveBtn = findViewById(R.id.saveBtn);
         nameEditText = findViewById(R.id.nameEditText);
@@ -75,11 +77,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         myToolbar = findViewById(R.id.settings_toolbar);
         setSupportActionBar(myToolbar);
-        getSupportActionBar().setTitle("Profile Settings");
-
-        nameEditListener = nameEditText.getKeyListener();
-        nameEditText.setAlpha(.6f);
-        nameEditText.setKeyListener(null);
+        getSupportActionBar().setTitle("User Profile");
 
 
         this.saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -99,7 +97,23 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
+        setVisibleEditable();
         retrieveDataFromDatabase();
+    }
+
+    private void setVisibleEditable() {
+        nameEditListener = nameEditText.getKeyListener();
+        nameEditText.setAlpha(.6f);
+        nameEditText.setKeyListener(null);
+
+        boolean isEditable = (boolean)getIntent().getExtras().get("editable");
+        if(!isEditable) {
+            saveBtn.setVisibility(View.INVISIBLE);
+            statusEditText.setAlpha(.6f);
+            statusEditText.setKeyListener(null);
+            userImageView.setClickable(false);
+            userImageView.setOnClickListener(null);
+        }
     }
 
     @Override

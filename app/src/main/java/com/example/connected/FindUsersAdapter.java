@@ -1,6 +1,7 @@
 package com.example.connected;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.connected.DB.Contact;
+import com.example.connected.activities.SettingsActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -23,12 +25,15 @@ public class FindUsersAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<Contact> users;
 
+    private Context context;
+
     private FirebaseAuth mAuth;
     private FirebaseUser currUser;
     private DatabaseReference rootRef;
 
     public FindUsersAdapter(Context c, ArrayList<Contact> users) {
         this.users = users;
+        this.context = c;
         mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         mAuth = FirebaseAuth.getInstance();
@@ -66,10 +71,18 @@ public class FindUsersAdapter extends BaseAdapter {
         friendsRequestBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                System.out.println("sent friend request in adapter");
                 sendFriendRequest(currUserEntry);
             }
         });
+
+        Button viewProfileBtn = v.findViewById(R.id.viewProfileButton);
+        viewProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToSettingsActivity(currUserEntry);
+            }
+        });
+
 
         return v;
     }
@@ -85,5 +98,12 @@ public class FindUsersAdapter extends BaseAdapter {
         map.put("uid", currUserEntry.getUid());
 
         currFriendRef.updateChildren(map);
+    }
+
+    private void goToSettingsActivity(Contact currUserEntry) {
+        Intent goToSettingsIntent = new Intent(context, SettingsActivity.class);
+        goToSettingsIntent.putExtra("uid", currUserEntry.getUid());
+        goToSettingsIntent.putExtra("editable", false);
+        context.startActivity(goToSettingsIntent);
     }
 }

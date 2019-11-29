@@ -205,6 +205,8 @@ public class MainScreenActivity extends AppCompatActivity {
 
     private void goToSettingsActivity() {
         Intent goToSettingsIntent = new Intent(getApplicationContext(), SettingsActivity.class);
+        goToSettingsIntent.putExtra("uid", currentUser.getUid());
+        goToSettingsIntent.putExtra("editable", true);
         startActivity(goToSettingsIntent);
     }
 

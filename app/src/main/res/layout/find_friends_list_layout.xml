@@ -35,16 +35,36 @@
             app:hwRatio="1.0"
             android:layout_marginStart="8dp" />
 
-        <TextView
-            android:id="@+id/usernameTextView"
-            android:layout_width="89dp"
-            android:layout_height="29dp"
-            android:layout_marginStart="35dp"
-            android:layout_marginTop="25dp"
-            android:gravity="center"
-            android:text="TextView"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+        <LinearLayout
+            android:layout_width="135dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/usernameTextView"
+                android:layout_width="89dp"
+                android:layout_height="29dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:text="TextView"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Button
+                android:text="View Profile"
+                android:id="@+id/viewProfileButton"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="29dp"
+                android:background="@drawable/app_buttons_drawable"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:elevation="15in"
+                android:gravity="center" />
+        </LinearLayout>
+
 
             <Button
                 android:text="Friend Request"
@@ -54,7 +74,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:background="@drawable/app_buttons_drawable"
-                android:layout_marginStart="40dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="25dp"
                 android:elevation="15in"
                 android:gravity="center" />

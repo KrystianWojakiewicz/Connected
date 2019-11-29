@@ -1,16 +1,17 @@
 package com.example.connected.tabs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.connected.DB.Contact;
 import com.example.connected.R;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
+import com.example.connected.activities.SettingsActivity;
 import com.squareup.picasso.Picasso;
 import com.theophrast.ui.widget.SquareImageView;
 
@@ -21,16 +22,17 @@ public class FriendsListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
     private ArrayList<Contact> friends;
 
+    private Context context;
+
     private TextView usernameTextView;
     private TextView statusIcon;
     private SquareImageView userImageView;
 
-    private DatabaseReference rootRef;
 
     public FriendsListAdapter(Context c, ArrayList<Contact> friends) {
         this.friends = friends;
         mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        rootRef = FirebaseDatabase.getInstance().getReference();
+        this.context = c;
     }
 
     private void initializeViews(View v) {
@@ -59,14 +61,30 @@ public class FriendsListAdapter extends BaseAdapter {
         View v = mInflater.inflate(R.layout.users_list_layout, null);
         initializeViews(v);
 
-        Contact currUser = friends.get(position);
-        usernameTextView.setText(currUser.getName());
+        final Contact currUserEntry = friends.get(position);
+        usernameTextView.setText(currUserEntry.getName());
 
         userImageView.setImageResource(R.drawable.default_avatar);
         Picasso.get().load(this.friends.get(position).getImage()).into(this.userImageView);
 
         statusIcon.setBackgroundResource(R.drawable.green_circle_drawable);
 
+        Button viewProfileBtn = v.findViewById(R.id.viewProfileButton);
+        viewProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToSettingsActivity(currUserEntry);
+            }
+        });
+
+
         return v;
+    }
+
+    private void goToSettingsActivity(Contact currUserEntry) {
+        Intent goToSettingsIntent = new Intent(context, SettingsActivity.class);
+        goToSettingsIntent.putExtra("uid", currUserEntry.getUid());
+        goToSettingsIntent.putExtra("editable", false);
+        context.startActivity(goToSettingsIntent);
     }
 }
