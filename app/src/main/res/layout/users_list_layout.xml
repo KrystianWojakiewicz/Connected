@@ -71,14 +71,14 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/statusIcon"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_marginStart="75dp"
-                android:layout_marginTop="14dp"
-                android:elevation="15in"
-                android:gravity="center" />
+<!--            <TextView-->
+<!--                android:id="@+id/statusIcon"-->
+<!--                android:layout_width="20dp"-->
+<!--                android:layout_height="20dp"-->
+<!--                android:layout_marginStart="75dp"-->
+<!--                android:layout_marginTop="14dp"-->
+<!--                android:elevation="15in"-->
+<!--                android:gravity="center" />-->
 
 <!--            <TextView-->
 <!--                android:id="@+id/statusTextView"-->
@@ -95,7 +95,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="29dp"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="30dp"
                 android:background="@drawable/app_buttons_drawable"
                 android:elevation="15in"
                 android:gravity="center"

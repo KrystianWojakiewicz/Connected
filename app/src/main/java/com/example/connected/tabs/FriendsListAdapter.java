@@ -81,7 +81,7 @@ public class FriendsListAdapter extends BaseAdapter {
         userImageView.setImageResource(R.drawable.default_avatar);
         Picasso.get().load(this.friends.get(position).getImage()).into(this.userImageView);
 
-        statusIcon.setBackgroundResource(R.drawable.green_circle_drawable);
+//        statusIcon.setBackgroundResource(R.drawable.green_circle_drawable);
 
         Button viewProfileBtn = v.findViewById(R.id.viewProfileButton);
         viewProfileBtn.setOnClickListener(new View.OnClickListener() {
