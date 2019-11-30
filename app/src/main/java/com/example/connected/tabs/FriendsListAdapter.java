@@ -31,7 +31,7 @@ public class FriendsListAdapter extends BaseAdapter {
     private Context context;
 
     private TextView usernameTextView;
-    private TextView statusIcon;
+//    private TextView statusIcon;
     private SquareImageView userImageView;
 
     private FirebaseAuth mAuth;
@@ -47,7 +47,7 @@ public class FriendsListAdapter extends BaseAdapter {
 
     private void initializeViews(View v) {
         this.usernameTextView = v.findViewById(R.id.usernameTextView);
-        this.statusIcon = v.findViewById(R.id.statusIcon);
+//        this.statusIcon = v.findViewById(R.id.statusIcon);
         this.userImageView = v.findViewById(R.id.userImageView);
 
         mAuth = FirebaseAuth.getInstance();

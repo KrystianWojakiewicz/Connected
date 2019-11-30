@@ -51,8 +51,8 @@ public class MyApplication extends Application {
             }
 
             @Override public void onActivityDestroyed(Activity activity) {
-//                mAuth = FirebaseAuth.getInstance();
-//                mAuth.signOut();
+                mAuth = FirebaseAuth.getInstance();
+                mAuth.signOut();
             }
         });
     }
