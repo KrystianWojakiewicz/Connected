@@ -34,9 +34,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 fragment = new GroupsTab();
                 break;
-            case 2:
-                fragment = new MyProfileTab();
-                break;
+//            case 2:
+//                fragment = new MyProfileTab();
+//                break;
         }
         return fragment;
     }
@@ -49,7 +49,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        // Show 3 total pages.
-        return 3;
+        // Show 2 total pages.
+        return 2;
     }
 }

@@ -79,9 +79,9 @@ public class FindUsersActivity extends AppCompatActivity {
                         String image = nextUser.child("image").getValue().toString();
                         String status = nextUser.child("status").getValue().toString();
                         String uid = nextUser.child("uid").getValue().toString();
+
                         set.add(new Contact(name, image,status, uid));
                     }
-
                 }
                 users.clear();
                 users.addAll(set);

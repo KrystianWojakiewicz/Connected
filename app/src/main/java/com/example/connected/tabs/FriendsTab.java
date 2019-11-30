@@ -85,12 +85,12 @@ public class FriendsTab extends Fragment {
                         String image = nextFriend.child("image").getValue().toString();
                         String status = nextFriend.child("status").getValue().toString();
                         String uid = nextFriend.child("uid").getValue().toString();
+
                         set.add(new Contact(name, image, status, uid));
                     }
                 }
                 friends.clear();
                 friends.addAll(set);
-//                arrayAdapter.notifyDataSetChanged();
                 myAdapter.notifyDataSetChanged();
             }
 
