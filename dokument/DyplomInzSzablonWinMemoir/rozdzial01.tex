@@ -1,0 +1,57 @@
+\chapter{Wstêp}
+\section{Wprowadzenie}
+Niniejszy dokument powsta³ z myœl¹ o ujednoliceniu sposobu redagowania prac dyplomowych. Jego Ÿród³a maj¹ pe³niæ rolê szablonu nowoedytowanej pracy, zaœ treœæ powinna byæ interpretowana jako zestaw zaleceñ i uwag o charakterze technicznym (dotycz¹cych takich zagadnieñ, jak: formatowanie tekstu, za³¹czanie rysunków, uk³ad strony itp.) oraz stylistycznym (odnosz¹cych siê do stylu wypowiedzi, sposobów tworzenia referencji itp.).
+
+Szablon przygotowano do kompilacji pdflatexem w konfiguracji: \texttt{MiKTeX} (windowsowa dystrybucja latexa) + \texttt{TeXnicCenter} (œrodowisko do edycji i kompilacji projektów latexowych) + \texttt{SumatraPDF} (przegl¹darka pdfów z nawigacj¹ zwrotn¹) + JabRef (opcjonalny edytor bazy danych bibliograficznych). Jest to zalecany zestaw narzêdzi do edycji pracy w systemie Windows. Mo¿na je pobraæ ze stron internetowych, których adresy zamieszczono w tabeli~\ref{tab:narzedzia}.
+\begin{table}[htb] \small
+\centering
+\caption{Wykaz zalecanych narzêdzi do kompilacji szablonu (adresy internetowe wa¿ne na dzieñ 1.04.2016)}
+\label{tab:narzedzia}
+\begin{tabularx}{\linewidth}{|c|c|X|p{6cm}|} \hline\
+Narzêdzie & Wersja & Opis & Adres \\ \hline\hline
+MiKTeX & 2.9 & Zalecana jest instalacja \texttt{Basic MiKTeX} z dystrubucji 32 lub 64 bitowej. Brakuj¹ce pakiety bêd¹ siê doinstalowywaæ podczas kompilacji projektu. &
+\url{http://miktex.org/download} \\ \hline
+TexnicCenter & 2.02 &  Mo¿na pobraæ 32 lub 64 bitow¹ wersjê & \url{http://www.texniccenter.org/download/} \\ \hline
+SumatraPDF & 3.1.1 & Mo¿na pobraæ 32 lub 64 bitow¹ wersjê & \url{http://www.sumatrapdfreader.org/download-free-pdf-viewer.html} \\ \hline
+JabRef & 3.3 & Mo¿na pobraæ 32 lub 64 bitow¹ wersjê & \url{http://www.fosshub.com/JabRef.html} \\ \hline
+\end{tabularx}
+\end{table}
+Nic nie stoi jednak na przeszkodzie, aby szablon ten dostosowaæ do wykorzystania z u¿yciem innych narzêdzi. Dostosowanie to mog³oby polegaæ na zmianie kodowania plików i korekcie deklaracji kodowania znaków w dokumencie g³ównym (co opisano dalej).
+
+W kodzie Ÿród³owym szablonu zamieszczono komentarze z uwagami pozwalaj¹cymi lepiej zrozumieæ znaczenie u¿ywanych komend. Komentarze te nie s¹ widoczne w pliku \texttt{Dokument.pdf}, który powstaje jako wynik kompilacji szablonu. 
+
+
+%%%2. œrodowisko do pisania kodu latexa: 
+%%%( )
+%%%3. viewer pdf-ów, pozwalaj¹cy na nawigacjê zwrotn¹: Sumatra PDF 3.0
+%%%(http://www.sumatrapdfreader.org/download-free-pdf-viewer.html)
+%%%
+%%%- o konfiguracji texniccenter do wspó³dzia³ania z sumatra pdf mo¿na poczytaæ sobie na stronie:
+%%%http://tex.stackexchange.com/questions/116981/how-to-configure-texniccenter-2-0-with-sumatra-2013-2014-2015-version
+%%%(mo¿na znaleŸæ te¿ inne tutoriale)
+%%%
+%%%4. œrodowisko do zarz¹dzania bibliografi¹: JabRef
+%%%(http://jabref.sourceforge.net/download.php)
+%%%
+%%%Polecam te¿ instalacjê pod windowsami nastêpuj¹cych narzêdzi:
+%%%- Sumatra PDF - przegl¹darka pdf umo¿liwiaj¹ca nawigacjê pomiêdzy
+%%%edytowanym tekstem a przegl¹danym dokumentem (podgl¹danie tekstu w
+%%%TeXnicCenter umieszcza kursor w odpowiednim miejscu w pdfie, podwójne
+%%%klikniêcie w pdfie ustawia kursor w edytorze tekstu).
+%%%- JabRef - narzêdzie do przygotowywania bibliografii.
+%%%
+%%%
+%%%Uwaga: tytu³ powinien zmieœciæ siê w okienku kolorowej ok³adki (któr¹
+%%%powinna dostarczyæ uczelniana administracja). Proszê posterowaæ
+%%%parametrami, aby "wpasowaæ" w okienko w³asny tekst.
+%%%
+%%%Do ASAPa nale¿y wprowadziæ pracê dyplomow¹/projekt in¿ynierski w pliku o nazwie:
+%%%
+%%%W04_[nr albumu]_[rok kalendarzowy]_[rodzaj pracy] (szczegó³owa instrukcja pod adresem asap.pwr.edu.pl)
+%%%
+           %%%Przyk³adowo:
+        %%%­W04_123456_2015_praca in¿ynierska.pdf     - praca dyplomowa in¿ynierska
+        %%%W04_123456_2015_projekt in¿ynierski.pdf   - projekt in¿ynierski
+        %%%W04_123456_2015_praca magisterska.pdf  - praca dyplomowa magisterska
+%%%
+              %%%rok kalendarzowy ? rok realizacji kursu „Praca dyplomowa” (nie rok obrony) 

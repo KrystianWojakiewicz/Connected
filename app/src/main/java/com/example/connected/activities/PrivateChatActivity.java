@@ -30,7 +30,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class MessageViewActivity extends AppCompatActivity {
+public class PrivateChatActivity extends AppCompatActivity {
     private Toolbar myToolbar;
     private ImageButton sendMsgButton;
     private EditText messageEditText;
@@ -150,7 +150,7 @@ public class MessageViewActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()) {
-                        Toast.makeText(MessageViewActivity.this, "Message sent Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PrivateChatActivity.this, "Message sent Successfully", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -159,7 +159,7 @@ public class MessageViewActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if(task.isSuccessful()) {
-                        Toast.makeText(MessageViewActivity.this, "Message received Successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PrivateChatActivity.this, "Message received Successfully", Toast.LENGTH_SHORT).show();
                     }
                 }
             });

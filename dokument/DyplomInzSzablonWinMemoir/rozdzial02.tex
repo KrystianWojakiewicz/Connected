@@ -1,0 +1,95 @@
+\chapter{Praca z szablonem}
+\section{Organizacja szablonu}
+Szablon sk³ada siê z pliku g³ównego, plików z kodem kolejnych rozdzia³ów i dodatków (w³¹czanych do kompilacji w dokumencie g³ównym), katalogów z plikami grafik (w³¹czanymi do rysunków w rozdzia³ach), pliku ze skrótami (opcjonalny), pliku z danymi bibliograficznymi (plik \texttt{dokumentacja.bib}). Taki ,,uk³ad'' zapewnia porz¹dek oraz pozwala na selektywn¹ kompilacjê rozdzia³ów. Wyjaœniaj¹c to dok³adniej, podczas tworzenia szablonu przyjêto nastêpuj¹c¹ konwencjê:
+\begin{itemize}
+\item Plikiem g³ównym jest plik \texttt{Dyplom.tex}. To w nim znajduj¹ siê deklaracje wszystkich u¿ywanych styli, definicje makr oraz ustawieñ, jak równie¿ polecenie \verb+\begin{document}+.
+\item Teksty rozdzia³ów s¹ redagowane w osobnych plikach o nazwach zawieraj¹cych numer rozdzia³u. Pliki te zamieszczone s¹ w katalogu g³ównym (tym samym, co plik \texttt{Dyplom.tex}). I~tak \texttt{rozdzial01.tex} to plik pierwszego rozdzia³u (ze Wstêpem), \texttt{rozdzial02.tex} to plik z treœci¹ drugiego rozdzia³u itd. 
+\item Teksty dodatków s¹ redagowany w osobnych plikach o nazwach zawieraj¹cych literê dodatku. Pliki te, podobnie do plików z tekstem rozdzia³ów, zamieszczane s¹ w katalogu g³ównym. I~tak \texttt{dodatekA.tex} oraz \texttt{dodatekB.tex} to, odpowiednio, pliki z treœci¹ dodatku A oraz dodatku B.
+\item Pewnym wyj¹tkiem od regu³y nazewniczej w przypadku plików z tekstem rozdzia³ów i dodatków jest plik \texttt{skroty.tex}. Jest to plik, w którym zamieszczono wykaz u¿ytych skrótów. W jego nazwie nie wystêpuje ¿aden numer czy porz¹dkowa litera. 
+\item Ka¿demu rozdzia³owi i dodatkowi towarzyszy katalog przeznaczony do sk³adowania do³¹czanych w nim grafik. I tak \texttt{rys01} to katalog na pliki z grafikami do³¹czanymi do rozdzia³u pierwszego, \texttt{rys02} to katalog na pliki z grafikami do³¹czanymi do rozdzia³u drugiego itd.
+Podobnie \texttt{rysA} to katalog na pliki z grafikami do³¹czanymi w dodatku A itd.
+\item W katalogu g³ównym zamieszczany jest plik \texttt{dokumentacja.bib} zawieraj¹cy bazê danych bibliograficznych.
+\end{itemize}
+
+\begin{table}[htb]
+\centering\small
+\caption{Pliki Ÿród³owe szablonu oraz wyniki kompilacji}
+\label{tab:szablon}
+\begin{tabularx}{\linewidth}{|p{.55\linewidth}|X|}\hline
+ród³a & Wyniki kompilacji \\ \hline\hline
+\verb?Dokument.tex? - dokument g³ówny\newline
+\verb?Dokument.tcp? -- szablon projektu \texttt{MiKTeX}\newline
+\verb?rozdzial01.tex? -- plik rozdzia³u \texttt{01}\newline
+\verb?...?\newline
+\verb?dodatekA.tex? -- plik dodatku \texttt{A}\newline
+\verb?...?\newline
+\verb?rys01? -- katalog na rysunki do rozdzia³u \texttt{01}\newline
+\verb?   |- fig01.png? -- plik grafiki\newline
+\verb?   |- ...?\newline
+\verb?...?\newline
+\verb?rysA? -- katalog na rysunki do dodatku \texttt{A}\newline
+\verb?   |- fig01.png? -- plik grafiki\newline
+\verb?   |- ...?\newline
+\verb?...?\newline
+\verb?dokumentacja.bib? -- plik danych bibliograficznych\newline
+\verb?Dyplom.ist? -- plik ze stylem indeksu\newline
+\verb?by-nc-sa.png? -- plik z ikonami CC\newline
+ &
+\verb?Dyplom.bbl?\newline
+\verb?Dyplom.blg?\newline
+\verb?Dyplom.ind?\newline
+\verb?Dyplom.idx?\newline
+\verb?Dyplom.lof?\newline
+\verb?Dyplom.log?\newline
+\verb?Dyplom.lot?\newline
+\verb?Dyplom.out?\newline
+\verb?Dyplom.pdf? -- dokument wynikowy\newline
+\verb?Dyplom.syntex?\newline
+\verb?Dyplom.toc?\newline
+\verb?Dyplom.tps?\newline
+\verb?*.aux?\newline 
+\verb?Dyplom.synctex?\newline\\
+\hline
+\end{tabularx}
+\end{table}
+
+Szablon przygotowano w systemie Windows stosuj¹c kodowanie \texttt{cp1250}. Mo¿na go wykorzystaæ równie¿ w innych systemach i przy innych kodowaniach. Jednak¿e wtedy konieczna jest korekta dokumentu \texttt{Dyplom.tex} odpowiednio do wybranego przypadku. Korekta ta polegaæ mo¿e na zamianie polecenia \verb+\usepackage[cp1250]{inputenc}+  na polecenie \verb+\usepackage[utf8]{inputenc}+ oraz konwersji kodowania istniej¹cych plików ze Ÿród³em latexowego kodu (plików o rozszerzeniu \texttt{*.tex} oraz \texttt{*.bib}).
+
+Samo kodowanie plików mo¿e byæ Ÿród³em paru problemów. Chodzi o to, ¿e u¿ytkownicy pracuj¹cy z edytorami tekstów pod linuxem mog¹ generowaæ pliki zakodowane w UTF-8 bez BOM lub z BOM, a pod windowsem -- pliki z kodowaniem znaków \texttt{cp1250} zakodowanych w~ANSI. A z takimi plikami ró¿ne edytory ró¿nie sobie radz¹ (w szczególnoœci edytor TeXnicCenter czasami z niewiadomego powodu traktuje zawartoœæ pliku jako UTF8 lub ANSI -- chyba sprawdza, czy w bufore nie ma jakichœ znaków specjalnych i na tej podstawie interpretuje kodowanie). Bywa, ¿e choæ wszystko wygl¹da OK to jednak kompilacja latexowa ,,nie idzie''. Problemem mog¹ byæ w³aœnie pierwsze bajty, których nie widaæ w edytorze. 
+
+Kodowanie znaków jest istotne równie¿ przy edytowaniu bazy danych bibliograficznych (pliku \texttt{dokumentacja.bib}). Aby \texttt{bibtex} poprawnie interpretowa³ polskie znaki plik \texttt{dokumentacja.bib} powinien byæ zakodowany w ANSI, CR+LF (dla ustawieñ jak w szablonie). Do konwersji kodowania mo¿na u¿yæ Notepad++ (jest tam opcja ,,konwertuj'' - nie myliæ z opcj¹ ,,koduj'', która przekodowuje znaki, jednak nie zmienia sposobu kodowania pliku).
+
+
+
+\section{Kompilacja szablonu}
+Kompilacjê szablonu mo¿e uruchamiæ na killka ró¿nych sposobów. Wszystko zale¿y od u¿ywanego systemu operacyjnego, zaintalowanej na nim dystrybucji latexa oraz dostêpnych narzêdzi. Zazwyczaj kompilacjê rozpoczyna siê wydaj¹c polecenie z linii komend lub uruchamia siê j¹ za pomoc¹ narzêdzi zintegrowanych œrodowisk.
+
+Kompilacja z linii komend polega na uruchomieniu w katalogu, w którym rozpakowano Ÿród³a szablonu, nastêpuj¹cego polecenia:
+\begin{lstlisting}[basicstyle=\ttfamily]
+> pdflatex Dyplom.tex
+\end{lstlisting}
+gdzie \texttt{pdflatex} to nazwa kompilatora, zaœ \texttt{Dyplom.tex} to nazwa g³ównego pliku redagowanej pracy. 
+W przypadku korzystania ze œrodowiska \texttt{TeXnicCenter} nale¿y otworzyæ dostarczony w szablonie plik projektu \texttt{Dyplom.tcp}, a nastêpnie uruchomiæ kompilacjê narzêdziami dostêpnymi w pasku narzêdziowym.
+
+Aby poprawnie wygenerowa³y siê wszystkie referencje (spis treœci, odwo³ania do tabel, rysunków, pozycji literaturowych, równañ itd.) kompilacjê \texttt{pdflatex} nale¿y wykonaæ dwukrotnie, a~czasem nawet trzykrotnie, gdy wygenerowane maj¹ zostaæ odwo³ania do pozycji literaturowych oraz wykazu literatury. 
+
+Wygenerowanie danych bibliograficznych zapewnia kompilacja \texttt{bibtex} uruchamiana po kompilacji \texttt{pdfltex}. Mo¿na to zrobiæ z linii komend:
+\begin{lstlisting}[basicstyle=\ttfamily]
+> bibtex Dyplom
+\end{lstlisting}
+lub wybieraj¹c odpowiedni¹ pozycjê z paska narzêdziowego wykorzystywanego œrodowiska. Po kompilacji \texttt{bibtex} na dysku pojawi siê plik \texttt{Dyplom.bbl}. Dopiero po kolejnych dwóch kompilacjach \texttt{pdflatex} dane z tego pliku pojawi¹ siê w wygenerowanym dokumencie. Podsumowuj¹c, po ka¿dym wstawieniu nowego cytowania w kodzie dokumentu uzyskanie poprawnego formatowania dokumentu wynikowego wymaga powtórzenia nastêpuj¹cej sekwencji kroków kompilacji:
+\begin{lstlisting}[basicstyle=\ttfamily]
+> pdflatex Document.tex
+> bibtex Document
+> latex Document.tex
+> latex Document.tex
+\end{lstlisting}
+Szczegó³y dotycz¹ce przygotowania danych bibliograficznych oraz zastosowania cytowañ przedstawiono w podrozdziale \ref{sec:literatura}.
+
+W g³ównym pliku zamieszczono polecenia pozwalaj¹ce sterowaæ procesem kompilacji poprzez w³¹czanie b¹dŸ wy³¹czanie kodu Ÿród³owego poszczególnych rozdzia³ów. W³¹czanie kodu do kompilacji zapewniaj¹ instrukcje \verb+\include+ oraz \verb+\includeonly+. Pierwsza z nich pozwala w³¹czyæ do kompilacji kod wskazanego pliku (np.\ kodu Ÿród³owego pierwszego rozdzia³u \verb+\include{rozdzial01.tex}+). Druga, jeœli zostanie zastosowana, pozwala okreœliæ, które z~plików zostan¹ skompilowane w ca³oœci (na przyk³ad kod Ÿród³owy pierwszego i drugiego rozdzia³u \verb+\includeonly{rozdzial01.tex,rozdzial02.tex}+).
+Brak nazwy pliku na liœcie w poleceniu \verb+\includeonly+ przy jednoczesnym wyst¹pieniu jego nazwy w poleceniu \verb+\include+ oznacza, ¿e w kompilacji zostan¹ uwzglêdnione referencje wygenerowane dla tego pliku wczeœniej, sam zaœ kod Ÿród³owy pliku nie bêdzie kompilowany. 
+
+W szablonie wykorzystano klasê dokumentu \texttt{memoir} oraz wybrane pakiety. Podczas kompilacji szablonu w \texttt{MikTeXu} wszelkie potrzebne pakiety zostan¹ zainstalowane automatycznie (jeœli \texttt{MikTeX} zainstalowano z opcj¹ dynamicznej instalacji brakuj¹cych pakietów). W przypadku innych dystrybucji latexowych mo¿e okazaæ siê, ¿e pakiety te trzeba doinstalowaæ rêcznie (np.\ pod linuxem z \texttt{TeXLive} trzeba doinstalowaæ dodatkow¹ zbiorcz¹ paczkê, a jeœli ma siê menad¿era pakietów latexowych - to pakiety latexowe mo¿na instalowaæ indywidualnie).
+
+Jeœli w szablonie bêdzie wykorzystany indeks rzeczowy, kompilacjê Ÿróde³ trzeba bêdzie rozszerzyæ o kroki potrzebne na wygenerowanie plików poœrednich \texttt{Dokument.idx} oraz \texttt{Dokument.ind} oraz do³¹czenia ich do finalnego dokumentu (podobnie jak to ma miejsce przy generowaniu wykazu literatury).
+Szczegó³y dotycz¹ce generowania indeksu rzeczowego opisano w podrozdziale~\ref{sec:indeks}.

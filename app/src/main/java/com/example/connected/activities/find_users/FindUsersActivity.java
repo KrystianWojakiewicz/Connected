@@ -1,4 +1,4 @@
-package com.example.connected.activities;
+package com.example.connected.activities.find_users;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -7,8 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.os.Bundle;
 import android.widget.ListView;
 
-import com.example.connected.DB.Contact;
-import com.example.connected.FindUsersAdapter;
+import com.example.connected.DB.User;
 import com.example.connected.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -27,7 +26,7 @@ public class FindUsersActivity extends AppCompatActivity {
     private ListView foundUsersListView;
     private Toolbar myToolbar;
     private FindUsersAdapter myAdapter;
-    private ArrayList<Contact> users = new ArrayList<>();
+    private ArrayList<User> users = new ArrayList<>();
 
 
     private DatabaseReference rootRef;
@@ -63,7 +62,7 @@ public class FindUsersActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 Iterator iterator = dataSnapshot.getChildren().iterator();
-                Set<Contact> set = new HashSet<>();
+                Set<User> set = new HashSet<>();
 
                 while (iterator.hasNext()) {
                     DataSnapshot nextUser = ((DataSnapshot)iterator.next());
@@ -80,7 +79,7 @@ public class FindUsersActivity extends AppCompatActivity {
                         String status = nextUser.child("status").getValue().toString();
                         String uid = nextUser.child("uid").getValue().toString();
 
-                        set.add(new Contact(name, image,status, uid));
+                        set.add(new User(name, image,status, uid));
                     }
                 }
                 users.clear();

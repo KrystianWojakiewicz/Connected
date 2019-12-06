@@ -10,7 +10,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 
 import com.example.connected.tabs.FriendsTab;
 import com.example.connected.tabs.GroupsTab;
-import com.example.connected.tabs.MyProfileTab;
 import com.example.connected.R;
 
 public class SectionsPagerAdapter extends FragmentPagerAdapter {

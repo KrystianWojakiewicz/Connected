@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.connected.DB.Contact;
+import com.example.connected.DB.User;
 import com.example.connected.R;
 import com.example.connected.activities.SettingsActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -26,7 +26,7 @@ import java.util.ArrayList;
 
 public class FriendsListAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private ArrayList<Contact> friends;
+    private ArrayList<User> friends;
 
     private Context context;
 
@@ -39,7 +39,7 @@ public class FriendsListAdapter extends BaseAdapter {
     private DatabaseReference rootRef;
 
 
-    public FriendsListAdapter(Context c, ArrayList<Contact> friends) {
+    public FriendsListAdapter(Context c, ArrayList<User> friends) {
         this.friends = friends;
         mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.context = c;
@@ -75,7 +75,7 @@ public class FriendsListAdapter extends BaseAdapter {
         View v = mInflater.inflate(R.layout.users_list_layout, null);
         initializeViews(v);
 
-        final Contact currUserEntry = friends.get(position);
+        final User currUserEntry = friends.get(position);
         usernameTextView.setText(currUserEntry.getName());
 
         userImageView.setImageResource(R.drawable.default_avatar);
@@ -102,14 +102,14 @@ public class FriendsListAdapter extends BaseAdapter {
         return v;
     }
 
-    private void goToSettingsActivity(Contact currUserEntry) {
+    private void goToSettingsActivity(User currUserEntry) {
         Intent goToSettingsIntent = new Intent(context, SettingsActivity.class);
         goToSettingsIntent.putExtra("uid", currUserEntry.getUid());
         goToSettingsIntent.putExtra("editable", false);
         context.startActivity(goToSettingsIntent);
     }
 
-    private void deleteFriend(Contact currUserEntry) {
+    private void deleteFriend(User currUserEntry) {
         DatabaseReference friendToDelete = rootRef.child("users").child(currUser.getUid()).child("friends").child(currUserEntry.getName());
         friendToDelete.removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

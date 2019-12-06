@@ -1,4 +1,4 @@
-package com.example.connected;
+package com.example.connected.activities.find_users;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.connected.DB.Contact;
+import com.example.connected.DB.User;
+import com.example.connected.R;
 import com.example.connected.activities.SettingsActivity;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,7 +26,7 @@ import java.util.HashMap;
 
 public class FindUsersAdapter extends BaseAdapter {
     private LayoutInflater mInflater;
-    private ArrayList<Contact> users;
+    private ArrayList<User> users;
 
     private Context context;
 
@@ -33,7 +34,7 @@ public class FindUsersAdapter extends BaseAdapter {
     private FirebaseUser currUser;
     private DatabaseReference rootRef;
 
-    public FindUsersAdapter(Context c, ArrayList<Contact> users) {
+    public FindUsersAdapter(Context c, ArrayList<User> users) {
         this.users = users;
         this.context = c;
         mInflater = (LayoutInflater) c.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -65,7 +66,7 @@ public class FindUsersAdapter extends BaseAdapter {
         TextView usernameTextView = v.findViewById(R.id.usernameTextView);
         ImageView userImage = v.findViewById(R.id.userImageView);
 
-        final Contact currUserEntry = users.get(position);
+        final User currUserEntry = users.get(position);
         usernameTextView.setText(currUserEntry.getName());
         Picasso.get().load(currUserEntry.getImage()).into(userImage);
 
@@ -89,7 +90,7 @@ public class FindUsersAdapter extends BaseAdapter {
         return v;
     }
 
-    void sendFriendRequest(Contact currUserEntry) {
+    void sendFriendRequest(User currUserEntry) {
         String currUid = currUser.getUid();
         final DatabaseReference currFriendRef = rootRef.child("users").child(currUid).child("friends").child(currUserEntry.getName());
 
@@ -107,7 +108,7 @@ public class FindUsersAdapter extends BaseAdapter {
         });
     }
 
-    private void goToSettingsActivity(Contact currUserEntry) {
+    private void goToSettingsActivity(User currUserEntry) {
         Intent goToSettingsIntent = new Intent(context, SettingsActivity.class);
         goToSettingsIntent.putExtra("uid", currUserEntry.getUid());
         goToSettingsIntent.putExtra("editable", false);

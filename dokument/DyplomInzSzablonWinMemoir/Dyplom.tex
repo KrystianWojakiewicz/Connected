@@ -1,0 +1,566 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%  ZawartoúÊ: G≥Ûwny plik szablonu pracy dyplomowej (magisterskiej/inøynierskiej).
+%  Opracowa≥: Tomasz Kubik <tomasz.kubik@pwr.edu.pl>
+%  Data: kwiecieÒ 2016
+%  Wersja: 0.2
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[a4paper,onecolumn,oneside,12pt,extrafontsizes]{memoir}
+% W celu przygotowania wydruku do archiwum naleøy przes≥oniÊ komendÍ powyøszπ
+% dwoma poniøszymi komendami:
+%\documentclass[a4paper,onecolumn,twoside,10pt]{memoir} 
+%\renewcommand{\normalsize}{\fontsize{8pt}{10pt}\selectfont}
+
+\usepackage[cp1250]{inputenc} % jeúli kodowanie edytowanych plikÛw to cp1250 
+%\usepackage[utf8]{inputenc} % jeúli kodowanie edytowanych plikÛw to UTF8
+\usepackage[T1]{fontenc}
+\usepackage[polish]{babel}
+%\DisemulatePackage{setspace}
+\usepackage{setspace}
+\usepackage{tabularx}
+\usepackage{color,calc}
+%\usepackage{soul} % pakiet z komendami do podkreúlania tekstu
+
+\usepackage{ebgaramond} % pakiet z czcionkami garamond, potrzebny tylko do strony tytu≥owej, musi wystπpiÊ przed pakietem tgtermes
+
+%% Aby uzyskaÊ polskie literki w pdfie (a nie zlepki) korzystamy z pakietu czcionek tgterms. 
+%% W pakiecie tym sπ zdefiniowane klony czcionek Times o kszta≥tach: normalny, pogrubiony, italic, italic pogrubiony.
+%% W pakiecie tym brakuje czcionki o kszta≥cie: slanted (podobny do italic). 
+%% Jeúli w dokumencie gdzieú zostanie zastosowana czcionka slanted (np. po uøyciu komendy \textsl{}), to
+%% latex dokona podstawienia na czcionkÍ standardowπ i zg≥osi to w ostrzeøeniu (warningu).
+%% Ponadto tgtermes to czcionka do tekstu. Wszelkie matematyczne wzory bÍdπ sformatowane domyúlnπ czcionkπ do wzorÛw.
+%% Jeúli wzory majπ byÊ sformatowane z wykorzystaniem innych czcionek, trzeba to jawnie zadeklarowaÊ.
+
+%% Po zainstalowaniu pakietu tgtermes moøe bÍdzie trzeba zauktualizowaÊ informacje 
+%% o dostÍpnych fontach oraz mapy. Moøna to zrobiÊ z konsoli (jako administrator)
+%% initexmf --admin --update-fndb
+%% initexmf --admin --mkmaps
+
+\usepackage{tgtermes}   
+\renewcommand*\ttdefault{txtt}
+
+% We wczeúniejszej wersji szablonu korzystano z innych czcionek. Dla celÛw historycznych pozostawiono je w komentarzu
+%\usepackage{mathptmx} % pakiet bÍdπcy nastÍpcπ pakietÛw times and mathptm, niestety polskie literki sπ zlepkami
+%\usepackage{newtxtext,newtxmath} % pakiety dostarczajπce Times dla tekstÛw i wzorÛw matematycznych,  
+%                                  rozwiπzuje problemy wystÍpujπce w mathptmx, ale wymaga zainstalowania
+%                                  dodatkowych pakietÛw oraz uruchomienia updmap (konsola administratora)
+%                                  niestety polskie literki sπ zlepkami
+%\usepackage{newtxmath,tgtermes} % moøna teø po≥πczyÊ czcionki do tekstu i czcionki do wzorÛw
+
+\usepackage{listings} % pakiet do prezentacji kodu. 
+%Wczeúniej by≥ problem z polskimi znakami w otoczeniu lstlisting, stπd pozostawiono w komentarzu zastosowane wtedy rozwiπzanie: 
+%\lstset{literate=%-
+%{π}{{\k{a}}}1 {Ê}{{\'c}}1 {Í}{{\k{e}}}1 {≥}{{\l{}}}1 {Ò}{{\'n}}1 {Û}{{\'o}}1 {ú}{{\'s}}1 {ø}{{\.z}}1 {ü}{{\'z}}1 {•}{{\k{A}}}1 {∆}{{\'C}}1 { }{{\k{E}}}1 {£5}{{\L{}}}1 {—}{{\'N}}1 {”}{{\'O}}1 {å}{{\'S}}1 {Ø}{{\.Z}}1 {è}{{\'Z}}1 }%{\ \ }{{\ }}1}
+
+% ChoÊ moøliwe jest zastosowanie rÛønych pakietÛw formatujπcych tabele, zaleca siÍ tego nie robiÊ.
+%\usepackage{longtable}
+%\usepackage{ltxtable}
+%\usepackage{tabulary}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Ustawienia odpowiedzialne za sposÛb ≥amania dokumentu
+%% i u≥oøenie elementÛw p≥ywajπcych
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\hyphenpenalty=10000		% nie dziel wyrazÛw zbyt czÍsto
+\clubpenalty=10000      %kara za sierotki
+\widowpenalty=10000  % nie pozostawiaj wdÛw
+\brokenpenalty=10000		% nie dziel wyrazÛw miÍdzy stronami
+\exhyphenpenalty=999999		% nie dziel s≥Ûw z myúlnikiem
+\righthyphenmin=3			% dziel minimum 3 litery
+
+%\tolerance=4500
+%\pretolerance=250
+%\hfuzz=1.5pt
+%\hbadness=1450
+
+\renewcommand{\topfraction}{0.95}
+\renewcommand{\bottomfraction}{0.95}
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\floatpagefraction}{0.35}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Ustawienia rozmiarÛw: tekstu, nag≥Ûwka i stopki, marginesÛw
+%%  dla dokumentÛw klasy memoir 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\setlength{\headsep}{10pt} 
+\setlength{\headheight}{13.6pt} % wartoúÊ baselineskip dla czcionki 11pt tj. \small wynosi 13.6pt
+\setlength{\footskip}{\headsep+\headheight}
+\setlength{\uppermargin}{\headheight+\headsep+1cm}
+\setlength{\textheight}{\paperheight-\uppermargin-\footskip-1.5cm}
+\setlength{\textwidth}{\paperwidth-5cm}
+\setlength{\spinemargin}{2.5cm}
+\setlength{\foremargin}{2.5cm}
+\setlength{\marginparsep}{2mm}
+\setlength{\marginparwidth}{2.3mm}
+%\settrimmedsize{297mm}{210mm}{*}
+%\settrims{0mm}{0mm}	
+\checkandfixthelayout[fixed] % konieczne, aby siÍ dobrze wszystko poustawia≥o
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Ustawienia odleg≥oúci linii, wciÍÊ, odstÍpÛw
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\linespread{1}
+%\linespread{1.241}
+\setlength{\parindent}{14.5pt}
+%\setbeforesecskip{10pt plus 0.5ex}%{-3.5ex \@plus -1ex \@minus -.2ex}
+%\setaftersecskip{10pt plus 0.5ex}%\onelineskip}
+%\setbeforesubsecskip{8pt plus 0.5ex}%{-3.5ex \@plus -1ex \@minus -.2ex}
+%\setaftersubsecskip{8pt plus 0.5ex}%\onelineskip}
+%\setlength\floatsep{6pt plus 2pt minus 2pt} 
+%\setlength\intextsep{12pt plus 2pt minus 2pt} 
+%\setlength\textfloatsep{12pt plus 2pt minus 2pt} 
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Pakiety i komendy zastosowane tylko do zamieszczenia informacji o uøytych komendach i fontach
+%%  Normalnie nie sπ potrzebne, moøna je zamarkowaÊ podczas redakcji pracy
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{memlays}     % extra layout diagrams, zastosowane w szblonie do 'debuggowania', uøywa pakietu layouts
+%\usepackage{layouts}
+\usepackage{printlen} % pakiet do wyúwietlania wartoúci zdefiniowanych d≥ugoúci, stosowany do 'debuggowania'
+\uselengthunit{pt}
+\makeatletter
+\newcommand{\showFontSize}{\f@size pt} % makro wypisujπce wielkoúÊ bieøπcej czcionki
+\makeatother
+% do pokazania ramek moøna by≥oby uøyÊ:
+%\usepackage{showframe} 
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Formatowanie list wyliczeniowych, wypunktowaÒ i w≥asnych otoczeÒ
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Domyúlnie wypunktowania majπ zadeklatorowane znaki, ktÛre nie wystÍpujπ w tgtermes
+% Aby latex nie podstawia≥ w ich miejsca znakÛw z czcionki standardowej moøna zrobiÊ podstawienie:
+%    \DeclareTextCommandDefault{\textbullet}{\ensuremath{\bullet}}
+%    \DeclareTextCommandDefault{\textasteriskcentered}{\ensuremath{\ast}}
+%    \DeclareTextCommandDefault{\textperiodcentered}{\ensuremath{\cdot}}
+% Jednak jeszcze lepszym pomys≥em jest zdefiniowanie otoczeÒ z wykorzystaniem enumitem
+\usepackage{enumitem} % pakiet pozwalajπcy zarzπdzaÊ formatowaniem list wyliczeniowych
+\setlist{noitemsep,topsep=4pt,parsep=0pt,partopsep=4pt,leftmargin=*} % zadeklarowane parametry pozwalajπ uzyskaÊ 'zwartπ' postaÊ wypunktowania bπdü wyliczenia
+\setenumerate{labelindent=0pt,itemindent=0pt,leftmargin=!,label=\arabic*.} % moøna zmieniÊ \arabic na \alph, jeúli wyliczenia majπ byÊ z literkami
+\setlistdepth{4} % definiujemy g≥ÍbokoúÊ zagnieødøenia list wyliczeniowych do 4 poziomÛw
+\setlist[itemize,1]{label=$\bullet$}  % definiujemy, jaki symbol ma byÊ uøyty w wyliczeniu na danym poziomie
+\setlist[itemize,2]{label=\normalfont\bfseries\textendash}
+\setlist[itemize,3]{label=$\ast$}
+\setlist[itemize,4]{label=$\cdot$}
+\renewlist{itemize}{itemize}{4}
+
+%%%http://tex.stackexchange.com/questions/29322/how-to-make-enumerate-items-align-at-left-margin
+%\renewenvironment{enumerate}
+%{
+%\begin{list}{\arabic{enumi}.}
+%{
+%\usecounter{enumi}
+%%\setlength{\itemindent}{0pt}
+%%\setlength{\leftmargin}{1.8em}%{2zw} % 
+%%\setlength{\rightmargin}{0zw} %
+%%\setlength{\labelsep}{1zw} %
+%%\setlength{\labelwidth}{3zw} % 
+%\setlength{\topsep}{6pt}%
+%\setlength{\partopsep}{0pt}%
+%\setlength{\parskip}{0pt}%
+%\setlength{\parsep}{0em} % 
+%\setlength{\itemsep}{0em} % 
+%%\setlength{\listparindent}{1zw} % 
+%}
+%}{
+%\end{list}
+%}
+
+\makeatletter
+\renewenvironment{quote}{
+	\begin{list}{}
+	{
+	\setlength{\leftmargin}{1em}
+	\setlength{\topsep}{0pt}%
+	\setlength{\partopsep}{0pt}%
+	\setlength{\parskip}{0pt}%
+	\setlength{\parsep}{0pt}%
+	\setlength{\itemsep}{0pt}
+	}
+	}{
+	\end{list}}
+\makeatother
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Pakiet do generowania indeksu (waøne, aby wstawiÊ przed hyperref)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DisemulatePackage{imakeidx}
+\usepackage[makeindex,noautomatic]{imakeidx} % tutaj mÛwimy, øeby indeks nie generowa≥ siÍ automatycznie, 
+
+%\usepackage[noautomatic]{imakeidx} 
+\makeindex
+
+\makeatletter
+%%%\renewenvironment{theindex}
+							 %%%{\vskip 10pt\@makeschapterhead{\indexname}\vskip -3pt%
+								%%%\@mkboth{\MakeUppercase\indexname}%
+												%%%{\MakeUppercase\indexname}%
+								%%%\vspace{-3.2mm}\parindent\z@%
+								%%%\renewcommand\subitem{\par\hangindent 16\p@ \hspace*{0\p@}}%%
+								%%%\phantomsection%
+								%%%\begin{multicols}{2}
+								%%%%\thispagestyle{plain}
+								%%%\parindent\z@                
+								%%%%\parskip\z@ \@plus .3\p@\relax
+								%%%\let\item\@idxitem}
+							 %%%{\end{multicols}\clearpage}
+%%%
+\makeatother
+
+
+\usepackage{ifpdf}
+%\newif\ifpdf \ifx\pdfoutput\undefined
+%\pdffalse % we are not running PDFLaTeX
+%\else
+%\pdfoutput=1 % we are running PDFLaTeX
+%\pdftrue \fi
+\ifpdf
+ \usepackage[pdftex,bookmarks,breaklinks,unicode]{hyperref}
+ \usepackage[pdftex]{graphicx}
+ \DeclareGraphicsExtensions{.pdf,.jpg,.mps,.png}
+\pdfcompresslevel=9
+\pdfoutput=1
+\makeatletter
+\AtBeginDocument{
+  \hypersetup{
+	pdfinfo={
+    Title = {\@title},
+    Author = {\@author},
+    Subject={},
+    Keywords={s≥owa kluczowe},
+  }}
+}
+\makeatother
+\else
+\usepackage{graphicx}
+\DeclareGraphicsExtensions{.eps,.ps,.jpg,.mps,.png}
+\fi
+\sloppy
+
+
+%\graphicspath{{rys01/}{rys02/}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Metadane dla pdfa
+
+
+%\ifpdf
+%\pdfinfo{
+   %/Author (Nicola Talbot)
+   %/Title  (Creating a PDF document using PDFLaTeX)
+   %/CreationDate (D:20040502195600)
+   %/ModDate (D:\pdfdate)
+   %/Subject (PDFLaTeX)
+   %/Keywords (PDF;LaTeX)
+%}
+%\fi
+
+% Deklaracja g≥Íbokoúciu numeracji
+\setcounter{secnumdepth}{2}
+\setcounter{tocdepth}{2}
+\setsecnumdepth{subsection} % activating subsubsec numbering in doc
+
+
+% Kropki po numerach sekcji
+\makeatletter
+\def\@seccntformat#1{\csname the#1\endcsname.\quad}
+\def\numberline#1{\hb@xt@\@tempdima{#1\if&#1&\else.\fi\hfil}}
+\makeatother
+
+\renewcommand{\chapternumberline}[1]{#1.\quad}
+\renewcommand{\cftchapterdotsep}{\cftdotsep}
+
+%\definecolor{niceblue}{rgb}{.168,.234,.671}
+
+% Czcionka do podpisÛw tabel i rysunkÛw
+\captionnamefont{\small}
+\captiontitlefont{\small}
+% makro pozwalajπce zmieniÊ sposÛb wypisywania rozdzia≥u
+%\def\printchaptertitle##1{\fonttitle \space \thechapter.\space ##1} 
+
+%\usepackage{ltcaption}
+% The ltcaption package supports \CaptionLabelFont & \CaptionTextFont introduced by the NTG document classes
+%\renewcommand\CaptionLabelFont{\small}
+%\renewcommand\CaptionTextFont{\small}
+
+% Przedefiniowanie etykiet w podpisach tabel i rysunkÛw
+%\AtBeginDocument{% 
+        \addto\captionspolish{% 
+        \renewcommand{\tablename}{Tab.}% 
+}%} 
+
+%\AtBeginDocument{% 
+%        \addto\captionspolish{% 
+%        \renewcommand{\chaptername}{Rozdzia≥}% 
+%}} 
+
+%\AtBeginDocument{% 
+        \addto\captionspolish{% 
+        \renewcommand{\figurename}{Rys.}% 
+}%}
+
+
+%\AtBeginDocument{% 
+        \addto\captionspolish{% 
+        \renewcommand{\bibname}{Literatura}% 
+}%}
+
+%\AtBeginDocument{% 
+        \addto\captionspolish{% 
+        \renewcommand{\listfigurename}{Spis rysunkÛw}% 
+}%}
+
+%\AtBeginDocument{% 
+        \addto\captionspolish{% 
+        \renewcommand{\listtablename}{Spis tabel}% 
+}%}
+
+%\AtBeginDocument{% 
+        \addto\captionspolish{% 
+\renewcommand\indexname{Indeks rzeczowy}
+}%}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                  
+%% Definicje stopek i nag≥ÛwkÛw
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%                  
+\addtopsmarks{headings}{%
+\nouppercaseheads % added at the beginning
+}{%
+\createmark{chapter}{both}{shownumber}{}{. \space}
+%\createmark{chapter}{left}{shownumber}{}{. \space}
+\createmark{section}{right}{shownumber}{}{. \space}
+}%use the new settings
+
+\makeatletter
+\copypagestyle{outer}{headings}
+\makeoddhead{outer}{}{}{\small\itshape\rightmark}
+\makeevenhead{outer}{\small\itshape\leftmark}{}{}
+\makeoddfoot{outer}{\small\@author:~\@titleShort}{}{\small\thepage}
+\makeevenfoot{outer}{\small\thepage}{}{\small\@author:~\@title}
+\makeheadrule{outer}{\linewidth}{\normalrulethickness}
+\makefootrule{outer}{\linewidth}{\normalrulethickness}{2pt}
+\makeatother
+
+% fix plain
+\copypagestyle{plain}{headings} % overwrite plain with outer
+\makeoddhead{plain}{}{}{} % remove right header
+\makeevenhead{plain}{}{}{} % remove left header
+\makeevenfoot{plain}{}{}{}
+\makeoddfoot{plain}{}{}{}
+
+\copypagestyle{empty}{headings} % overwrite plain with outer
+\makeoddhead{empty}{}{}{} % remove right header
+\makeevenhead{empty}{}{}{} % remove left header
+\makeevenfoot{empty}{}{}{}
+\makeoddfoot{empty}{}{}{}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Definicja strony tytu≥owej 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\makeatletter
+%Uczelnia
+\newcommand\uczelnia[1]{\renewcommand\@uczelnia{#1}}
+\newcommand\@uczelnia{}
+%Wydzia≥
+\newcommand\wydzial[1]{\renewcommand\@wydzial{#1}}
+\newcommand\@wydzial{}
+%Kierunek
+\newcommand\kierunek[1]{\renewcommand\@kierunek{#1}}
+\newcommand\@kierunek{}
+%SpecjalnoúÊ
+\newcommand\specjalnosc[1]{\renewcommand\@specjalnosc{#1}}
+\newcommand\@specjalnosc{}
+%Tytu≥ po angielsku
+\newcommand\titleEN[1]{\renewcommand\@titleEN{#1}}
+\newcommand\@titleEN{}
+%Tytu≥ krÛtki
+\newcommand\titleShort[1]{\renewcommand\@titleShort{#1}}
+\newcommand\@titleShort{}
+%Promotor
+\newcommand\promotor[1]{\renewcommand\@promotor{#1}}
+\newcommand\@promotor{}
+
+\usepackage[absolute]{textpos} % zamarkowano, bo ostatecznie wykorzystano otoczenie picture
+
+\def\maketitle{%
+  \pagestyle{empty}%
+%%\garamond 
+	\fontfamily{\ebgaramond@family}\selectfont % na stronie tytu≥owej czcionka garamond
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+%% Poniøej, w otoczniu picture, wstawiono tytu≥ i autora. 
+%% Tytu≥ (z autorem) musi znaleüÊ siÍ w obszarze 
+%% odpowiadajπcym okienku 110mmx75mm, ktÛrego lewy gÛrny rÛg 
+%% jest w po≥oøeniu 77mm od lewej i 111mm od gÛrnej  krawÍdzi strony 
+%% (tak wynika z wyciÍcia na ok≥adce). 
+%% Poniøszy kod musi byÊ uøyty dok≥adnie w miejscu gdzie jest.
+%% Jeúli tytu≥ nie mieúci siÍ w okienku, to naleøy tak pozmieniaÊ 
+%% parametry uøytych komend, aby ten przyd≥ugi tytu≥ jednak 
+%% upakowaÊ go do okienka.
+%%
+%% Sama ok≥adka (kolorowa strona z wyciÍciem, do pobrania z dydaktyki) 
+%% powinna byÊ przyciÍta o 3mm od kaødej z krawÍdzi.
+%% Te 3mm pewnie zostawiono na ewentualne spady czy teø specjalnπ oprawÍ.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	
+\newlength{\tmpfboxrule}
+\setlength{\tmpfboxrule}{\fboxrule}
+\setlength{\fboxsep}{2mm}
+\setlength{\fboxrule}{0mm} 
+%\setlength{\fboxrule}{0.1mm} %% jeúli chcemy zobaczyÊ ramkÍ
+\setlength{\unitlength}{1mm}
+\begin{picture}(0,0)
+\put(26,-124){\fbox{
+\parbox[c][71mm][c]{104mm}{\centering 
+{\fontsize{16pt}{18pt}\selectfont \@title}\\[5mm]
+{\fontsize{16pt}{18pt}\selectfont \@titleEN}\\[20mm]
+{\fontsize{16pt}{18pt}\selectfont AUTOR:}\\[2mm]
+{\fontsize{14pt}{16pt}\selectfont \@author}}
+}
+}
+\end{picture}
+\setlength{\fboxrule}{\tmpfboxrule} 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% Reszta strony z nazwπ uczelni, wydzia≥u, kierunkiem, specjalnoúciπ
+%% promotorem, ocenπ pracy, miastem i rokiem
+	{\centering%\vspace{-1cm}
+		{\fontsize{22pt}{24pt}\selectfont \@uczelnia}\\[0.4cm]
+		{\fontsize{22pt}{24pt}\selectfont \@wydzial}\\[0.5cm]
+		  \hrule %\vspace*{0.7cm}
+	}
+{\flushleft\fontsize{14pt}{16pt}\selectfont%
+\begin{tabular}{ll}
+KIERUNEK: & \@kierunek\\
+SPECJALNOå∆: & \@specjalnosc\\
+\end{tabular}\\[1.3cm]
+}
+{\centering
+{\fontsize{32pt}{36pt}\selectfont PRACA DYPLOMOWA}\\[0.5cm]
+{\fontsize{32pt}{36pt}\selectfont INØYNIERSKA}\\[2.5cm]
+}
+\vfill
+\begin{tabularx}{\linewidth}{p{6cm}l}
+		&{\fontsize{16pt}{18pt}\selectfont PROWADZ•CY PRAC :}\\[2mm] %UWAGA: tutaj jest miejsce na nazwisko promotora pracy
+		&{\fontsize{14pt}{16pt}\selectfont \@promotor}\\[10mm]
+		&{\fontsize{16pt}{18pt}\selectfont OCENA PRACY:}\\[20mm]
+	\end{tabularx}
+\vspace{2cm}
+\hrule\vspace*{0.3cm}
+{\centering
+{\fontsize{16pt}{18pt}\selectfont \@date}\\[0cm]
+}
+%\ungaramond
+\normalfont
+ \cleardoublepage
+}
+\makeatother
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\AtBeginDocument{\addtocontents{toc}{\protect\thispagestyle{empty}}}
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%  Metadane dokumentu 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\title{Komunikator mobilny na platformÍ Android}
+\titleShort{Komunikator mobilny}
+\titleEN{Mobile Communicator for Android}
+\author{Krystian Wojakiewicz}
+\uczelnia{POLITECHNIKA WROC£AWSKA}
+\wydzial{WYDZIA£ ELEKTRONIKI}
+\kierunek{AUTOMATYKA I ROBOTYKA}
+\specjalnosc{TECHNOLOGIE INFORMACYJNE W AUTOMATYCE}
+\promotor{Dr Inø. Mariusz UchroÒski}
+\date{WROC£AW, 2019}
+
+% Ustawienie odstÍpu od gÛry w nienumerowanych rozdzia≥ach oraz wykazach:
+% Spis treúci, Spis tabel, Spis rysunkÛw, Indeks rzeczowy
+
+%\newlength{\linespace}
+%\setlength{\linespace}{-\beforechapskip-\topskip+\headheight+\topsep}
+%\makechapterstyle{noNumbered}{%
+%\renewcommand\chapterheadstart{\vspace*{\linespace}}
+%}
+
+%% powyøsza komenda za≥atwia to, co robiπ komendy poniøsze dla spisÛw
+%\renewcommand*{\tocheadstart}{\vspace*{\linespace}}
+%\renewcommand*{\lotheadstart}{\vspace*{\linespace}}
+%\renewcommand*{\lofheadstart}{\vspace*{\linespace}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%                  Poczπtek dokumentu 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\includeonly{skroty,rozdzial01} % jeúli chcemy kompilowaÊ tylko fragmenty, to moøna tu je wpisaÊ
+
+\begin{document}
+% Tutaj moøna prze≥πczyÊ odstÍp miÍdzy liniami
+%\SingleSpacing
+%\OnehalfSpacing
+%\DoubleSpacing
+
+%\settypeoutlayoutunit{cm} % do debugowania
+%\typeoutstandardlayout    % wypisuje na stdout informacje o ustawieniach
+\maketitle
+
+\newpage
+\thispagestyle{empty}
+\mbox{}\vfill
+\noindent\begin{tabular}{@{}ll} Opracowa≥: & Tomasz Kubik <tomasz.kubik@pwr.edu.pl>\\
+ Data: & maj 2016 
+ \end{tabular}\\[15mm]
+\noindent\includegraphics[width=3cm]{by-nc-sa}\newline
+{\normalfont 
+Szablon jest udostÍpniany na licencji Creative Commons: \emph{Uznanie autorstwa -- Uøycie niekomercyjne -- Na tych samych warunkach, 3.0 Polska}, Wroc≥aw 2016. \\[2pt]
+Oznacza to, øe wszystkie zawarte  nim treúci moøna kopiowaÊ i  wykorzystywaÊ do celÛw niekomercyjnych, a takøe tworzyÊ na ich podstawie utwory zaleøne pod warunkiem podania autora i~nazwy licencjodawcy oraz udzielania na utwory zaleøne takiej samej licencji. Tekst licencji jest dostÍpny pod adresem: \url{http://creativecommons.org/licenses/by-nc-sa/3.0/pl/}.}
+\newpage
+
+
+\chapterstyle{noNumbered}
+\pagestyle{outer}
+\mbox{}\pdfbookmark[0]{Spis treúci}{spisTresci.1}
+\tableofcontents* 
+
+\newpage
+\mbox{}\pdfbookmark[0]{Spis rysunkÛw}{spisRysunkow.1}
+%\addcontentsline{toc}{chapter}{Spis rysunkÛw}
+\listoffigures*
+\begin{flushleft}
+
+\end{flushleft}
+%{%
+%\let\oldnumberline\numberline%
+%\renewcommand{\numberline}{\figurename~\oldnumberline}%
+%\listoffigures%
+%}
+
+
+\newpage
+\mbox{}\pdfbookmark[0]{Spis tabel}{spisTabel.1}
+%\addcontentsline{toc}{chapter}{Spis tabel}
+\listoftables*
+
+\include{skroty} %skrÛty moøna sobie pominπÊ
+%\chapterstyle{default}
+\include{wstep}
+\include{cel_pracy}
+
+
+%\bibliographystyle{plalpha}
+\bibliographystyle{plabbrv}
+
+%UWAGA: bibliotekÍ referencji naleøy przygotowaÊ samemu. Dobrym do tego narzÍdziem jest JabRef.
+%       NazwÍ przygotowanej biblioteki wpisuje siÍ poniøej bez rozszerzenia 
+%       (w tym przypadku jest to "dokumentacja.bib")
+\bibliography{dokumentacja}
+\appendix
+\include{dodatekA}
+\include{dodatekB}
+
+\chapterstyle{noNumbered}
+\phantomsection % sets an anchor
+\addcontentsline{toc}{chapter}{Indeks rzeczowy}
+\printindex
+
+\end{document}

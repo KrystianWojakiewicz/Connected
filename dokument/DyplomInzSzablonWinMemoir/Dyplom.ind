@@ -1,0 +1,33 @@
+\begin{theindex}
+  \providecommand*\lettergroupDefault[1]{}
+  \providecommand*\lettergroup[1]{%
+      \par\textbf{#1}\par
+      \nopagebreak
+  }
+
+  \lettergroup{A}
+  \item $\ast$, \hyperpage{27}
+
+  \indexspace
+
+  \lettergroup{C}
+  \item $\mathcal{C}$, \hyperpage{27}
+
+  \indexspace
+
+  \lettergroup{G}
+  \item generowanie
+    \subitem -- indeksu, \hyperpage{27}
+    \subitem -- wykazu literatury, \hyperpage{27}
+
+  \indexspace
+
+  \lettergroup{L}
+  \item linia komend, \hyperpage{27}
+
+  \indexspace
+
+  \lettergroup{Œ}
+  \item \'Swiat\IeC {\l }o, \hyperpage{27}
+
+\end{theindex}

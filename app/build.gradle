@@ -40,15 +40,6 @@ dependencies {
     // Picasso lib
     implementation 'com.squareup.picasso:picasso:2.71828'
 
-    // Firebase UI for real-time Database
-    implementation 'com.firebaseui:firebase-ui-database:6.1.0'
-
     // Square Image View
     implementation 'com.github.Theophrast:SquareImageView:1.0.1'
-
-    // Shape of View
-    implementation 'com.github.florent37:shapeofview:1.4.7'
-
-    // mySQL connector support
-    implementation project(':mysql-connector-java-5.1.48-bin')
 }

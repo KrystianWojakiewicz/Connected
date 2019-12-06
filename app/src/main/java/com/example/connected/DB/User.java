@@ -1,16 +1,16 @@
 package com.example.connected.DB;
 
-public class Contact {
+public class User {
     public String name;
     public String image;
     public String status;
     public String uid;
 
-    public Contact() {
+    public User() {
 
     }
 
-    public Contact(String name, String image, String status, String uid) {
+    public User(String name, String image, String status, String uid) {
         this.name = name;
         this.image = image;
         this.status = status;
